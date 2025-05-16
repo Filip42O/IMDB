@@ -1,4 +1,12 @@
-<h1 align="center" style="color:#ff9900;">Imperium Mitów, Dezinformacji i Bredni (IMDB)</h1>
+<h1>
+  <span style="background-color:#000000;color:#FFFFFF;padding:0.2em 0.4em;border-top-left-radius:0.3em;border-bottom-left-radius:0.3em;">
+    Imperium Mitów,
+  </span>
+  <span style="background-color:#FF9900;color:#FFFFFF;padding:0.2em 0.4em;border-top-right-radius:0.3em;border-bottom-right-radius:0.3em;">
+    Dezinformacji i Bredni (IMDB)
+  </span>
+</h1>
+
 
 <p align="center">
   <img src="https://img.shields.io/badge/status-alpha-ff9900?style=flat-square" alt="Status">
