@@ -1,10 +1,5 @@
 <h1>
-  <span style="background-color:#000000;color:#FFFFFF;padding:0.2em 0.4em;border-top-left-radius:0.3em;border-bottom-left-radius:0.3em;">
-    Imperium Mitów,
-  </span>
-  <span style="background-color:#FF9900;color:#FFFFFF;padding:0.2em 0.4em;border-top-right-radius:0.3em;border-bottom-right-radius:0.3em;">
-    Dezinformacji i Bredni (IMDB)
-  </span>
+ IMPERIUM MITÓW, DEZINFORMACJI I BREDNI (IMDB) 🟧⬛
 </h1>
 
 
