@@ -21,7 +21,7 @@ Aplikacja do zarządzania rankingiem filmów, która umożliwia użytkownikom or
 - Eksportować dane do pliku tekstowego  
 - Generować statystyki (gatunki, średnie oceny, top1) i wizualizować je na co najmniej 3 wykresach  
 - Zarządzać kontami użytkowników i systemem logowania  
-- Obsługiwać co najmniej 10 różnych wyjątków dla stabilności działania :contentReference[oaicite:0]{index=0}:contentReference[oaicite:1]{index=1}
+- Obsługiwać co najmniej 10 różnych wyjątków dla stabilności działania
 
 ---
 
