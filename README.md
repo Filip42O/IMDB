@@ -1,4 +1,4 @@
-<h1 align="center" style="color:#ff9900;">Instytut Mitów, Dezinformacji i Bredni (IMDB)</h1>
+<h1 align="center" style="color:#ff9900;">Imperium Mitów, Dezinformacji i Bredni (IMDB)</h1>
 
 <p align="center">
   <img src="https://img.shields.io/badge/status-alpha-ff9900?style=flat-square" alt="Status">
