@@ -1,5 +1,5 @@
-<h1>
- IMPERIUM MITÓW, DEZINFORMACJI I BREDNI (IMDB) 🟧⬛
+<h1 align="center">
+ <strong>IMPERIUM MITÓW, DEZINFORMACJI I BREDNI (IMDB) </strong> 🟧⬛
 </h1>
 
 
