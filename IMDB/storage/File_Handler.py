@@ -15,8 +15,8 @@ class File_Handler:
                     #elems ['101', 'maciekKox', 'hash']
                     user = User()
                     user.overrideID(int(elems[0]))
-                    user.setusername(elems[1])
-                    user.setpassword(elems[2])
+                    user.setusername(elems[1].lower())
+                    user.setpasswordNoHash(elems[2])
                     File_Handler.user_list.append(user)
         except FileNotFoundError:
             raise Exception(f"File Not Found -> {file_name}")
@@ -30,3 +30,4 @@ class File_Handler:
             print(f"Błąd podczas uruchamiania metody zapisu do pliku: {ioerror}")
 
     def savereviewstofile(filename : str , review_list : list[Review]):
+        pass
