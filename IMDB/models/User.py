@@ -1,10 +1,11 @@
 from models.Movie import Movie
+from models.Review import Review
 import bcrypt
 
 
 class User:
     __global_id = 101
-    liked_list = list()
+    watched_list = list()
     review_list = list()
     #za kazdym razem jak przypisujemy id dodajmy je do seta
     taken_id = set()
@@ -53,26 +54,45 @@ class User:
         return bcrypt.checkpw(to_be_checked_pass.encode("utf-8"), self._password.encode("utf-8"))
 
     #MOVIES
-    def addliked(self, movie: Movie):
-        self.liked_list.append(movie)
+    def addwatched(self, movie: Movie):
+        self.watched_list.append(movie)
 
-    def removeliked(self, movie: Movie):
-        self.liked_list.remove(movie)
+    def removewatched(self, movie: Movie):
+        self.watched_list.remove(movie)
 
-    def cloneliked(self, Movies_list: list[Movie]):
+    def clonewatched(self, Movies_list: list[Movie]):
         for mov in Movies_list:
-            self.addliked(mov)
+            self.addwatched(mov)
 
     #REVIEWS
     def addreview(self, Review):
         self.review_list.append(Review)
 
-    def removereview(self, Review):
-        self.review_list.remove(Review)
+    def removereview(self, input_movie : Movie):
+        for review in self.review_list:
+            if review.movie == input_movie:
+                self.review_list.remove(review)
+            else:
+                raise Exception("Review for that movie doesnt exist!")
+
 
     def print_reviews(self):
         for review in self.review_list:
             print(review)
 
+    def inputreviewwalkthrough(self,input_film : Movie):
+        print(f"Dodajesz recenzje do filmu: {input_film.Title}")
+        rating : float = float(input(f"Podaj ocene w skali 0 - 10:"))
+
+        while rating < 0 or rating > 10:
+            print(f"Podano złą ocene!")
+            rating = float(input(f"Podaj ocene w skali 0 - 10:"))
+
+        description : str = str(input(f"Podaj opis swojej recenzji\n"))
+
+        return Review(input_film, rating, description)
+
+
+    #DRUKOWANIE USERA
     def __str__(self):
         return f"[{self.id}]: {self.username}"
