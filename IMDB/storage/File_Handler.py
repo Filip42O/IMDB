@@ -1,3 +1,4 @@
+from models.Category import Category
 from models.User import User
 from models.Review import Review
 from models.Movie import Movie
@@ -41,6 +42,10 @@ class File_Handler:
                     #elems [401:The Shawshank Redemption, 142, 1994, Frank Darabont]
                     # ['Science_Fiction', 'Drama', 'Romance']
                     mov = Movie(elems[1],elems[2],elems[3],elems[4])
+                    #film :Drama
+                    categories = elems[5].split(sep=',')
+                    for category in categories:
+                        mov.addcategory(Category[category])
                     mov.overrideID(int(elems[0]))
                     File_Handler.movie_list.append(mov)
         except FileNotFoundError:
@@ -67,18 +72,25 @@ class File_Handler:
     def load_reviews_from_file(file_name : str):
         if len(File_Handler.movie_list) <=0:
             raise Exception("No movies present! Load movies first")
+        if len(File_Handler.user_list) <=0:
+            raise Exception("No users present! Load users first")
         try:
             with open(file_name,'r') as file:
                 for line in file:
                     line = line.strip() #czyscimy ze new line
                     elems = line.split(sep=':')
-                    #elems [id_review:id_movie:ocena:desc]
+                    #elems [id_review:id_movie:id_user:ocena:desc]
                     mov = next((movie for movie in File_Handler.movie_list if movie.id == int(elems[1])),None)
+                    usr = next((user for user in File_Handler.user_list if user.id == int(elems[2])), None)
                     #brak znalezionego filmu!
                     if mov is None:
                         raise Exception(f"Movie ID:{elems[1]} not found!")
-                    rev = Review(mov,float(elems[2]),elems[3])
+                    if usr is None:
+                        raise Exception(f"User ID:{elems[2]} not found!")
+                    rev = Review(mov,float(elems[3]),elems[4])
                     rev.overrideID(int(elems[0]))
+                    #mozliwe ze tu dajemu kopii a nie oryginalowi
+                    usr.addreview(rev)
                     File_Handler.review_list.append(rev)
         except FileNotFoundError:
             raise Exception(f"Review file Not Found -> {file_name}")

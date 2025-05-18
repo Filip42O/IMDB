@@ -22,6 +22,14 @@ class Movie:
         self.Categories.remove(category)
 
     def getCategories(self):
+        result = ""
+        for category in self.Categories:
+            result += (str(category.name))
+            result += ","
+        result = result.rstrip(",")
+        return result
+
+    def showCategories(self):
         result = list()
         for category in self.Categories:
             result.append(str(category.name))
@@ -53,4 +61,4 @@ class Movie:
 
 
     def __str__(self):
-        return f"[{self.id}:{self.Title} from {self.Year} [Length:{self.Length}] by {self.Director}]"
+        return f"[{self.id}:{self.Title} from {self.Year} [Length:{self.Length}] by {self.Director} Categories: {self.showCategories()}]"

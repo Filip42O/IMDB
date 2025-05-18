@@ -22,9 +22,12 @@ def test1():
     File_Handler.savereviewstofile("../storage/reviewmark1",[rev1])
 
 def test2():
+    File_Handler.loaduserfromfile("./single_user")
     File_Handler.loadmoviesfromfile("../movies")
     File_Handler.load_reviews_from_file("../storage/reviewmark1")
     return File_Handler.review_list
 
-for rev in test2():
-    print(rev)
+varek = test2()
+File_Handler.user_list[0].print_reviews()
+print(File_Handler.movie_list[0])
+print(File_Handler.review_list[0])

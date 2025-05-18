@@ -1,6 +1,10 @@
 from models.User import User
+from storage.File_Handler import File_Handler
+from models.Movie import Movie
+from models.Category import Category
+from models.Review import Review
 
 
-mikolaj = User()
-mikolaj.setusername("TURBOBOMBOCLATMIKOMAK")
-print(mikolaj)
+stringus = "a,"
+
+print(stringus.split(sep=","))
