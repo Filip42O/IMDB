@@ -8,9 +8,7 @@ import streamlit as st
 
 @st.cache_data(ttl=15)
 def fetch_data():
-    File_Handler.loaduserfromfile("./users_saved")
-    time.sleep(2)
-    return File_Handler.user_list
+    return File_Handler.loaduserfromfile("./users_saved")
 
 
 data = fetch_data()
