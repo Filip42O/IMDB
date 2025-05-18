@@ -18,7 +18,7 @@ if "data_loaded" not in st.session_state:
     with st.spinner("Ładowanie danych z bazy..."):
         st.session_state.users = load_users("./users_saved")
         st.session_state.data_loaded = True
-    st.experimental_rerun()  # restart, aby zacząć od GUI już z danymi
+    st.rerun()  # restart, aby zacząć od GUI już z danymi
 
 # Gdy dane już załadowane – wyświetl GUI
 if st.session_state.data_loaded:
