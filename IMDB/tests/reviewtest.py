@@ -1,7 +1,7 @@
-from storage.File_Handler import File_Handler
-from models.User import User
-from models.Review import Review
-from models.Movie import Movie
+from IMDB.storage.File_Handler import File_Handler
+from IMDB.models.User import User
+from IMDB.models.Review import Review
+from IMDB.models.Movie import Movie
 
 #z pliku pobieramy usera
 File_Handler.loaduserfromfile("./single_user")
@@ -23,7 +23,7 @@ film2 = File_Handler.movie_list[1]
 userek.clonewatched(File_Handler.movie_list)
 
 # DLA TESTU DAJEMU JUZ FILMOWI RECENZJE
-# userek.addreview(Review(userek.watched_list[0],9.9,"super film polecam"))
+userek.addreview(Review(userek.watched_list[0],9.9,"super film polecam"))
 
 #takiego formatowania mozna uzyc potem w interfejsie
 print(f"Oto lista filmów które obejrzałeś ({len(userek.watched_list)}):")

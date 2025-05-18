@@ -1,4 +1,4 @@
-from models.Movie import Movie
+from ..models.Movie import Movie
 
 
 class Review:

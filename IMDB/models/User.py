@@ -1,5 +1,5 @@
-from models.Movie import Movie
-from models.Review import Review
+from IMDB.models.Movie import Movie
+from IMDB.models.Review import Review
 import bcrypt
 
 
