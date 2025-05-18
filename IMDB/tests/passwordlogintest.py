@@ -1,5 +1,5 @@
-from IMDB.models.User import User
-from IMDB.storage.File_Handler import File_Handler
+from models.User import User
+from storage.File_Handler import File_Handler
 
 
 #tomeczekPL

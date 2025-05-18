@@ -1,7 +1,7 @@
-from IMDB.models.User import User
-from IMDB.models.Movie import Movie
-from IMDB.models.Review import Review
-from IMDB.storage.File_Handler import File_Handler
+from models.User import User
+from models.Movie import Movie
+from models.Review import Review
+from storage.File_Handler import File_Handler
 
 film_50twarzygreya = Movie("Fifty Shades of Grey", 125, 2015, "Sam Taylor-Johnson")
 film_50twarzyciemniejszy = Movie("Fifty Shades Darker", 118, 2017, "James Foley")

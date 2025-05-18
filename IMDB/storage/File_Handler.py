@@ -1,6 +1,6 @@
-from IMDB.models.User import User
-from IMDB.models.Review import Review
-from IMDB.models.Movie import Movie
+from models.User import User
+from models.Review import Review
+from models.Movie import Movie
 
 class File_Handler:
     user_list = list()

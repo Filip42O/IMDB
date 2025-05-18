@@ -1,5 +1,5 @@
-from IMDB.models.Movie import Movie
-from IMDB.models.Review import Review
+from models.Movie import Movie
+from models.Review import Review
 import bcrypt
 
 
@@ -22,6 +22,7 @@ class User:
     def overrideID(self, new_id: int):
         # User.__global_id = new_id + 1
         User.taken_id.remove(self.id)
+
 
         if len(User.taken_id) > 0:
             User.__global_id = max(User.taken_id) + 1
