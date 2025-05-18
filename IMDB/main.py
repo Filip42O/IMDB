@@ -3,5 +3,25 @@ from models.Movie import Movie
 from models.Review import Review
 from storage.File_Handler import File_Handler
 
-import os
-print(os.getcwd())
+import streamlit as st
+
+# Tytuł aplikacji
+st.title("Witaj w Streamlit!")
+
+# Nagłówek
+st.header("Przykładowy nagłówek")
+
+# Podtytuł
+st.subheader("Przykładowy podtytuł")
+
+# Prosty tekst
+st.write("To jest przykładowy tekst wyświetlany za pomocą st.write()")
+
+# Czcionka monospace z st.text
+st.text("To jest tekst monospace z użyciem st.text()")
+
+# Tekst sformatowany Markdown
+st.markdown("**Pogrubiony tekst** oraz *kursywa* za pomocą st.markdown()")
+
+# Aby uruchomić tę aplikację, zapisz ten plik jako app.py i w terminalu wykonaj:
+# streamlit run app.py
