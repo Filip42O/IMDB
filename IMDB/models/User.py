@@ -22,7 +22,6 @@ class User:
         # User.__global_id = new_id + 1
         User.taken_id.remove(self.id)
 
-
         if len(User.taken_id) > 0:
             User.__global_id = max(User.taken_id) + 1
 
