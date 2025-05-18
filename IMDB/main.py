@@ -7,11 +7,27 @@ from storage.File_Handler import File_Handler
 import streamlit as st
 
 @st.cache_resource
-def fetch_data():
-    return File_Handler.loaduserfromfile("./users_saved")
+def fetch_data(file_name:str):
+    result = list()
+    try:
+        with open(file_name,'r') as file:
+            for line in file:
+                line = line.strip() #czyscimy ze new line
+                elems = line.split(sep=':')
+                #elems ['101', 'maciekKox', 'hash']
+                user = User()
+                user.overrideID(int(elems[0]))
+                user.setusername(elems[1].lower())
+                user.setpasswordNoHash(elems[2])
+                File_Handler.user_list.append(user)
+                result.append(user)
+            return result
+    except FileNotFoundError:
+        raise Exception(f"File Not Found -> {file_name}")
 
 
-data = fetch_data()
+
+data = fetch_data("./users_saved")
 
 for user in data:
     st.text(user)
