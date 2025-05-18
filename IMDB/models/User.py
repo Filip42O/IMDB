@@ -27,7 +27,7 @@ class User:
 
         #sprawdzamy czy id jest zajete
         if new_id in User.taken_id:
-            pass#raise Exception(f"Id {new_id} jest juz zajete!")
+            raise Exception(f"Id {new_id} jest juz zajete!")
         else:
             self.id = new_id
             User.taken_id.add(self.id)

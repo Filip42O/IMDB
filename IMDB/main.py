@@ -1,9 +1,16 @@
+import time
+
 from models.User import User
 from models.Movie import Movie
 from models.Review import Review
 from storage.File_Handler import File_Handler
 import streamlit as st
 
+
+
+File_Handler.loaduserfromfile("./users_saved")
+
+time.sleep(2)
 
 
 #ladowanie z plikow
@@ -28,8 +35,7 @@ st.markdown("**Pogrubiony tekst** oraz *kursywa* za pomocą st.markdown()")
 
 # Aby uruchomić tę aplikację, zapisz ten plik jako app.py i w terminalu wykonaj:
 # streamlit run app.py
-File_Handler.loaduserfromfile("./users_saved")
-print(File_Handler.user_list)
+
 
 for usr in File_Handler.user_list:
     st.text(usr)
