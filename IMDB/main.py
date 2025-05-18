@@ -38,5 +38,5 @@ with st.spinner("Wczytuję użytkowników z pliku…"):
     users = load_users("./users_saved")
 
 
-for usr in File_Handler.user_list:
+for usr in users:
     st.text(usr)
