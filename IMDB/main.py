@@ -12,7 +12,6 @@ def load_users(path):
     time.sleep(2)
     return File_Handler.user_list
 
-st.write("Liczba pozycji w File_Handler.user_list:", len(File_Handler.user_list))
 # Inicjalizacja danych w sesji – tylko raz
 if "data_loaded" not in st.session_state:
     with st.spinner("Ładowanie danych z bazy..."):
@@ -27,6 +26,7 @@ if st.session_state.data_loaded:
     for usr in st.session_state.users:
         st.text(usr)
 #ladowanie z plikow
+st.write("Liczba pozycji w File_Handler.user_list:", len(File_Handler.user_list))
 
 # Tytuł aplikacji
 st.title("Witaj w Streamlit!")
