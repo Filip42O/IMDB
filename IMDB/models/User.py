@@ -2,7 +2,6 @@ from models.Movie import Movie
 from models.Review import Review
 import bcrypt
 
-
 class User:
     __global_id = 101
     watched_list = list()
