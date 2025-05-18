@@ -9,6 +9,7 @@ import streamlit as st
 @st.cache_data(show_spinner=False)
 def load_users(path):
     File_Handler.loaduserfromfile(path)
+    time.sleep(2)
     return File_Handler.user_list
 
 
