@@ -26,7 +26,7 @@ if st.session_state.data_loaded:
     for usr in st.session_state.users:
         st.text(usr)
 #ladowanie z plikow
-st.write("Liczba pozycji w File_Handler.user_list:", len(File_Handler.user_list))
+st.write("Liczba pozycji w File_Handler.user_list:", len(st.session_state.users))
 
 # Tytuł aplikacji
 st.title("Witaj w Streamlit!")
