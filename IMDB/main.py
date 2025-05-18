@@ -8,9 +8,8 @@ import streamlit as st
 
 
 
-File_Handler.loaduserfromfile("./users_saved")
-
-time.sleep(2)
+while File_Handler.loaduserfromfile("./users_saved") != False:
+    pass
 
 
 #ladowanie z plikow

@@ -22,6 +22,7 @@ class File_Handler:
                     user.setusername(elems[1].lower())
                     user.setpasswordNoHash(elems[2])
                     File_Handler.user_list.append(user)
+                return False
         except FileNotFoundError:
             raise Exception(f"File Not Found -> {file_name}")
 
