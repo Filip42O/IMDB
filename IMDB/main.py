@@ -14,5 +14,5 @@ def fetch_data():
 data = fetch_data()
 
 for user in data:
-    print(user)
+    st.text(user)
 
