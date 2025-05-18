@@ -5,8 +5,6 @@ from storage.File_Handler import File_Handler
 import streamlit as st
 
 #ladowanie z plikow
-File_Handler.loaduserfromfile("./users_saved")
-print(File_Handler.user_list)
 
 # Tytuł aplikacji
 st.title("Witaj w Streamlit!")
@@ -28,3 +26,5 @@ st.markdown("**Pogrubiony tekst** oraz *kursywa* za pomocą st.markdown()")
 
 # Aby uruchomić tę aplikację, zapisz ten plik jako app.py i w terminalu wykonaj:
 # streamlit run app.py
+File_Handler.loaduserfromfile("./users_saved")
+print(File_Handler.user_list)
