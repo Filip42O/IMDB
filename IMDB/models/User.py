@@ -1,6 +1,6 @@
 from models.Movie import Movie
 from models.Review import Review
-import lib.bcrypt
+import models.bcrypt
 
 class User:
     __global_id = 101
