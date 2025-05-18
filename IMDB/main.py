@@ -4,6 +4,8 @@ from models.Review import Review
 from storage.File_Handler import File_Handler
 import streamlit as st
 
+
+
 #ladowanie z plikow
 
 # Tytuł aplikacji
@@ -28,3 +30,6 @@ st.markdown("**Pogrubiony tekst** oraz *kursywa* za pomocą st.markdown()")
 # streamlit run app.py
 File_Handler.loaduserfromfile("./users_saved")
 print(File_Handler.user_list)
+
+for usr in File_Handler.user_list:
+    st.text(usr)
