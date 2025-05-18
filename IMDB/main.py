@@ -3,3 +3,5 @@ from models.Movie import Movie
 from models.Review import Review
 from storage.File_Handler import File_Handler
 
+import os
+print(os.getcwd())
