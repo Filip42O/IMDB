@@ -6,7 +6,7 @@ from models.Review import Review
 from storage.File_Handler import File_Handler
 import streamlit as st
 
-@st.cache_data(ttl=15)
+@st.cache_resource
 def fetch_data():
     return File_Handler.loaduserfromfile("./users_saved")
 
