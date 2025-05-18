@@ -13,6 +13,19 @@ def load_users(path):
     return File_Handler.user_list
 
 
+# Inicjalizacja danych w sesji – tylko raz
+if "data_loaded" not in st.session_state:
+    with st.spinner("Ładowanie danych z bazy..."):
+        st.session_state.users = load_users("./users_saved")
+        st.session_state.data_loaded = True
+    st.experimental_rerun()  # restart, aby zacząć od GUI już z danymi
+
+# Gdy dane już załadowane – wyświetl GUI
+if st.session_state.data_loaded:
+    st.success("Dane załadowane!")
+    selected_user = st.selectbox("Wybierz użytkownika", st.session_state.users)
+    for usr in st.session_state.users:
+        st.text(usr)
 #ladowanie z plikow
 
 # Tytuł aplikacji
@@ -35,9 +48,4 @@ st.markdown("**Pogrubiony tekst** oraz *kursywa* za pomocą st.markdown()")
 
 # Aby uruchomić tę aplikację, zapisz ten plik jako app.py i w terminalu wykonaj:
 # streamlit run app.py
-with st.spinner("Wczytuję użytkowników z pliku…"):
-    users = load_users("./users_saved")
 
-
-for usr in users:
-    st.text(usr)
