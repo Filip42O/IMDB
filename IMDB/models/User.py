@@ -33,6 +33,7 @@ class User:
         else:
             self.id = new_id
             User.taken_id.add(self.id)
+            User.__global_id = max(User.taken_id) + 1
 
     def setusername(self, new_username: str):
         self.username = new_username.lower()
