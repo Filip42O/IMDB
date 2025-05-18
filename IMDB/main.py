@@ -13,6 +13,5 @@ def fetch_data():
 
 data = fetch_data()
 
-for usr in data:
-    st.text(usr)
+st.text(data)
 
