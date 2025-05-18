@@ -17,7 +17,7 @@ from storage.File_Handler import File_Handler
 # pass
 
 
-File_Handler.loaduserfromfile("./users_saved")
+File_Handler.loaduserfromfile("../users_saved")
 users = list(File_Handler.user_list)
 username_input = input("Please enter your username: ")
 nick_obj = dict()
@@ -38,4 +38,4 @@ if username_input in nick_obj:
         print("login failed")
 
 
-File_Handler.saveuserstofile("./users_saved",users)
+File_Handler.saveuserstofile("../users_saved", users)

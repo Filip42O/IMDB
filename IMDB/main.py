@@ -5,6 +5,10 @@ from storage.File_Handler import File_Handler
 
 import streamlit as st
 
+#ladowanie z plikow
+File_Handler.loaduserfromfile("./users_saved")
+
+
 # Tytuł aplikacji
 st.title("Witaj w Streamlit!")
 
