@@ -6,10 +6,10 @@ from models.Review import Review
 from storage.File_Handler import File_Handler
 import streamlit as st
 
-
-
-while File_Handler.loaduserfromfile("./users_saved") != False:
-    pass
+@st.cache_data(show_spinner=False)
+def load_users(path):
+    File_Handler.loaduserfromfile(path)
+    return File_Handler.user_list
 
 
 #ladowanie z plikow
@@ -34,6 +34,8 @@ st.markdown("**Pogrubiony tekst** oraz *kursywa* za pomocą st.markdown()")
 
 # Aby uruchomić tę aplikację, zapisz ten plik jako app.py i w terminalu wykonaj:
 # streamlit run app.py
+with st.spinner("Wczytuję użytkowników z pliku…"):
+    users = load_users("./users_saved")
 
 
 for usr in File_Handler.user_list:
