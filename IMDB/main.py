@@ -11,8 +11,7 @@ import streamlit as st
 
 
 
-
-data = File_Handler.loaduserfromfile("../IMDB/users_saved")
+data = File_Handler.loaduserfromfile("./users_saved")
 
 for user in data:
     st.text(user)
