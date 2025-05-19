@@ -7,8 +7,12 @@ from storage.File_Handler import File_Handler
 import streamlit as st
 import os
 
-st.title(os.path.dirname(os.path.abspath(__file__)))
 
+
+#/mount/src/imdb/IMDB
+
+st.title(":orange[IM]:black[DB]")
+st.header("Imperium mitów, dezinformacji i bredni",divider="orange")
 
 @st.cache_data
 def loadusers():
