@@ -7,12 +7,11 @@ from storage.File_Handler import File_Handler
 import streamlit as st
 import os
 
-
-
 #/mount/src/imdb/IMDB
 
-st.header(":orange[IM]:grey[DB]",divider="orange")
-st.header("Imperium mitów, dezinformacji i bredni",divider="grey")
+st.header(":orange[IM]:grey[DB]", divider="orange")
+st.header("Imperium mitów, dezinformacji i bredni", divider="grey")
+
 
 @st.cache_data
 def loadusers():
@@ -20,7 +19,12 @@ def loadusers():
     return File_Handler.user_list
 
 
-data = loadusers()
+users = loadusers()
 
-for user in data:
-    st.text(user)
+title = st.text_input("Username")
+if title:
+    user_var: User = next((user for user in users if user.username == title), None)
+    if user_var != None:
+        st.success(f"Pomyślnie znaleziono usera o ID:{user_var.id}")
+    else:
+        st.error(f"Brak użytkownika {title} w bazie danych!")
