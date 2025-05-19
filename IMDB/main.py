@@ -11,7 +11,7 @@ import os
 
 st.title(os.path.dirname(os.path.abspath(__file__)))
 
-data = File_Handler.loaduserfromfile("./users_saved")
+data = File_Handler.loaduserfromfile("/mount/src/imdb/IMDB/users_saved")
 
 for user in data:
     st.text(user)
