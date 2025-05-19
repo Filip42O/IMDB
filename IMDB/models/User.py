@@ -49,7 +49,8 @@ class User:
         #jezeli haslo nie bylo zinicjalizowane
         if self._password == "<DEFAULT>":
             print(f"Password for user:{self.id} nie jest zinicjalizowane")
-            self.setpassword(str(input("Prosze podać swoje hasło: ")))
+            #self.setpassword(str(input("Prosze podać swoje hasło: ")))
+            self.setpassword(str(to_be_checked_pass))
             return True  #manualnie zwracamy bo skoro podal haslo no to git
         return bcrypt.checkpw(to_be_checked_pass.encode("utf-8"), self._password.encode("utf-8"))
 

@@ -18,12 +18,48 @@ def loadusers():
     return File_Handler.user_list
 
 
-users = loadusers()
+users : list[User] = loadusers()
 
-title = st.text_input("Username")
-if title:
-    user_var: User = next((user for user in users if user.username == title), None)
-    if user_var != None:
-        st.success(f"Pomyślnie znaleziono usera o ID:{user_var.id}")
+if "page" not in st.session_state:
+    st.session_state.page = 1
+if "user" not in st.session_state:
+    st.session_state.user : User = None
+
+username_input = st.text_input("Username")
+if st.session_state.page == 1:
+    if username_input:
+        st.session_state.user = next((user for user in users if user.username == username_input), None)
+        print(st.session_state.user)
+        if st.session_state.user != None:
+            st.success(f"Pomyślnie znaleziono usera o ID:{st.session_state.user.id}")
+            st.session_state.page = 2
+            st.rerun()
+        else:
+            st.error(f"Brak użytkownika {username_input} w bazie danych!")
+            st.rerun()
+elif st.session_state.page == 2:
+    #haslo jest domyslne to trzeba je ustawic
+    if st.session_state.user.getpassword() == "<DEFAULT>":
+        st.text("Twoje konto nie ma założonego hasła!")
+        input = st.text_input("Podaj nowe hasło",type="password")
+        #jak poda haslo
+        if input:
+            st.session_state.user.setpassword(input)
+            st.success("Pomyślnie ustawiono hasło!")
+
+            st.session_state.page = 3
     else:
-        st.error(f"Brak użytkownika {title} w bazie danych!")
+        password_input = st.text_input("Password",type="password")
+        #uzytkownik cos wpisal
+        if password_input:
+            if st.session_state.user.checkpassword(password_input):
+                st.success("Podano prawidłowe hasło!")
+                st.session_state.page = 3
+            else:
+                st.error("Hasło nieprawidłowe")
+
+File_Handler.saveuserstofile("./users_saved",users)
+print(f"saved users")
+print(f"print last {users[0].checkpassword("turbo")}")
+
+st.stop()
