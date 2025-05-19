@@ -12,7 +12,8 @@ import os
 #/mount/src/imdb/IMDB
 
 st.title(f":orange[IM]:grey[DB]")
-st.header("Imperium mitów, dezinformacji i bredni",divider="orange")
+st.header("",divider="orange")
+st.header("Imperium mitów, dezinformacji i bredni",divider="grey")
 
 @st.cache_data
 def loadusers():
