@@ -33,6 +33,7 @@ class File_Handler:
             file = open(filename,'w')
             for user in users_list:
                 file.write(f"{user.id}:{user.username}:{user.getpassword()}\n")
+                file.flush()
         except IOError as ioerror:
             print(f"Błąd podczas uruchamiania metody zapisu do pliku: {ioerror}")
 

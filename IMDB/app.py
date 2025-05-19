@@ -44,9 +44,12 @@ elif st.session_state.page == 2:
         input = st.text_input("Podaj nowe hasło",type="password")
         #jak poda haslo
         if input:
+            print(f"po input {st.session_state.user}")
+            User.remove_by_id_from_list(users,st.session_state.user.id)
             st.session_state.user.setpassword(input)
             st.success("Pomyślnie ustawiono hasło!")
-
+            users.append(st.session_state.user)#tu dodaje ale to jest nie dobry pomysl
+            users = User.sort_user_list_by_id(users)
             st.session_state.page = 3
     else:
         password_input = st.text_input("Password",type="password")

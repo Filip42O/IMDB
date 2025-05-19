@@ -9,6 +9,20 @@ class User:
     #za kazdym razem jak przypisujemy id dodajmy je do seta
     taken_id = set()
 
+    #remove user by id
+    #
+    #PROBLEM NIE MOGE TYPE HINTA list[User] ???
+    def remove_by_id_from_list(user_list: list, id: int):
+        #returns true if removed, false if not
+        for i in range(len(user_list)):
+            if id == user_list[i].id:
+                user_list.pop(i)
+                return True
+        return False
+
+    def sort_user_list_by_id(user_list) -> list:
+        return sorted(user_list, key=lambda user: user.id)
+
     def __init__(self):
         self.id = User.__global_id
         User.taken_id.add(self.id)
@@ -54,6 +68,8 @@ class User:
             return True  #manualnie zwracamy bo skoro podal haslo no to git
         return bcrypt.checkpw(to_be_checked_pass.encode("utf-8"), self._password.encode("utf-8"))
 
+
+
     #MOVIES
     def addwatched(self, movie: Movie):
         self.watched_list.append(movie)
@@ -69,30 +85,28 @@ class User:
     def addreview(self, Review):
         self.review_list.append(Review)
 
-    def removereview(self, input_movie : Movie):
+    def removereview(self, input_movie: Movie):
         for review in self.review_list:
             if review.movie == input_movie:
                 self.review_list.remove(review)
             else:
                 raise Exception("Review for that movie doesnt exist!")
 
-
     def print_reviews(self):
         for review in self.review_list:
             print(review)
 
-    def inputreviewwalkthrough(self,input_film : Movie):
+    def inputreviewwalkthrough(self, input_film: Movie):
         print(f"Dodajesz recenzje do filmu: {input_film.Title}")
-        rating : float = float(input(f"Podaj ocene w skali 0 - 10:"))
+        rating: float = float(input(f"Podaj ocene w skali 0 - 10:"))
 
         while rating < 0 or rating > 10:
             print(f"Podano złą ocene!")
             rating = float(input(f"Podaj ocene w skali 0 - 10:"))
 
-        description : str = str(input(f"Podaj opis swojej recenzji\n"))
+        description: str = str(input(f"Podaj opis swojej recenzji\n"))
 
         return Review(input_film, rating, description)
-
 
     #DRUKOWANIE USERA
     def __str__(self):
