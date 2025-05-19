@@ -10,9 +10,8 @@ class User:
     taken_id = set()
 
     #remove user by id
-    #
-    #PROBLEM NIE MOGE TYPE HINTA list[User] ???
-    def remove_by_id_from_list(user_list: list, id: int):
+    #nazwa klasy w cudzyslowach forward reference :)
+    def remove_by_id_from_list(user_list: list['User'], id: int) -> list['User']:
         #returns true if removed, false if not
         for i in range(len(user_list)):
             if id == user_list[i].id:
@@ -20,7 +19,8 @@ class User:
                 return True
         return False
 
-    def sort_user_list_by_id(user_list) -> list:
+    #sortuje liste po id rosnaco
+    def sort_user_list_by_id(user_list: list['User']) -> list['User']:
         return sorted(user_list, key=lambda user: user.id)
 
     def __init__(self):
@@ -32,7 +32,7 @@ class User:
     _password = "<DEFAULT>"
 
     #ta metoda upewnia sie ze z naturalnych przyczyn id nie bedzie takie samo jak usera ktorego wczytalismy
-    def overrideID(self, new_id: int):
+    def overrideID(self, new_id: int) -> None:
         # User.__global_id = new_id + 1
         User.taken_id.remove(self.id)
 
@@ -47,19 +47,19 @@ class User:
             User.taken_id.add(self.id)
             User.__global_id = max(User.taken_id) + 1
 
-    def setusername(self, new_username: str):
+    def setusername(self, new_username: str) -> None:
         self.username = new_username.lower()
 
-    def setpassword(self, new_password: str):
+    def setpassword(self, new_password: str) -> None:
         self._password = bcrypt.hashpw(new_password.encode("utf-8"), bcrypt.gensalt()).decode('utf-8')
 
-    def setpasswordNoHash(self, new_password: str):
+    def setpasswordNoHash(self, new_password: str) -> None:
         self._password = new_password
 
-    def getpassword(self):
+    def getpassword(self) -> str:
         return self._password
 
-    def checkpassword(self, to_be_checked_pass: str):
+    def checkpassword(self, to_be_checked_pass: str) -> bool:
         #jezeli haslo nie bylo zinicjalizowane
         if self._password == "<DEFAULT>":
             print(f"Password for user:{self.id} nie jest zinicjalizowane")
@@ -71,32 +71,32 @@ class User:
 
 
     #MOVIES
-    def addwatched(self, movie: Movie):
+    def addwatched(self, movie: Movie) -> None:
         self.watched_list.append(movie)
 
-    def removewatched(self, movie: Movie):
+    def removewatched(self, movie: Movie) -> None:
         self.watched_list.remove(movie)
 
-    def clonewatched(self, Movies_list: list[Movie]):
+    def clonewatched(self, Movies_list: list[Movie]) -> None:
         for mov in Movies_list:
             self.addwatched(mov)
 
     #REVIEWS
-    def addreview(self, Review):
+    def addreview(self, Review) -> None:
         self.review_list.append(Review)
 
-    def removereview(self, input_movie: Movie):
+    def removereview(self, input_movie: Movie) -> None:
         for review in self.review_list:
             if review.movie == input_movie:
                 self.review_list.remove(review)
             else:
                 raise Exception("Review for that movie doesnt exist!")
 
-    def print_reviews(self):
+    def print_reviews(self) -> None:
         for review in self.review_list:
             print(review)
 
-    def inputreviewwalkthrough(self, input_film: Movie):
+    def inputreviewwalkthrough(self, input_film: Movie) -> Review:
         print(f"Dodajesz recenzje do filmu: {input_film.Title}")
         rating: float = float(input(f"Podaj ocene w skali 0 - 10:"))
 
@@ -109,5 +109,5 @@ class User:
         return Review(input_film, rating, description)
 
     #DRUKOWANIE USERA
-    def __str__(self):
+    def __str__(self) -> str:
         return f"[{self.id}]: {self.username}"

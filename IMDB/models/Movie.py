@@ -15,13 +15,13 @@ class Movie:
         self.Director = Director
         self.Categories = list()
 
-    def addcategory(self,category : Category):
+    def addcategory(self,category : Category) -> None:
         self.Categories.append(category)
 
-    def removecategory(self,category : Category):
+    def removecategory(self,category : Category) -> None:
         self.Categories.remove(category)
 
-    def getCategories(self):
+    def getCategories(self) -> str:
         result = ""
         for category in self.Categories:
             result += (str(category.name))
@@ -29,14 +29,14 @@ class Movie:
         result = result.rstrip(",")
         return result
 
-    def showCategories(self):
+    def showCategories(self) -> list[str]:
         result = list()
         for category in self.Categories:
             result.append(str(category.name))
         return result
 
     #ta metoda upewnia sie ze z naturalnych przyczyn id nie bedzie takie samo jak movie ktorego wczytalismy
-    def overrideID(self, new_id: int):
+    def overrideID(self, new_id: int) -> None:
         # Movie.__global_id = new_id + 1
         Movie.taken_id.remove(self.id)
 
@@ -53,7 +53,7 @@ class Movie:
             Movie.__global_id = max(Movie.taken_id) + 1
 
     #Metoda na podstawie ID przekazanego zwraca TRUE lub FALSE na podstawie obecnego global_id
-    def movie_exists(id):
+    def movie_exists(id) -> bool:
         if id in range(401,Movie.__global_id):
             return True
         return False

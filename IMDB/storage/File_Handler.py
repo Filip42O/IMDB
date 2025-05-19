@@ -10,7 +10,7 @@ class File_Handler:
     def __init__(self):
         pass
 
-    def loaduserfromfile(file_name : str):
+    def loaduserfromfile(file_name : str) -> list[User]:
         result = list()
         try:
             with open(file_name,'r') as file:
@@ -28,7 +28,7 @@ class File_Handler:
         except FileNotFoundError:
             raise Exception(f"File Not Found -> {file_name}")
 
-    def saveuserstofile(filename : str , users_list : list[User]):
+    def saveuserstofile(filename : str , users_list : list[User]) -> None:
         try:
             file = open(filename,'w')
             for user in users_list:
@@ -37,7 +37,7 @@ class File_Handler:
         except IOError as ioerror:
             print(f"Błąd podczas uruchamiania metody zapisu do pliku: {ioerror}")
 
-    def loadmoviesfromfile(file_name : str):
+    def loadmoviesfromfile(file_name : str) -> None:
         try:
             with open(file_name,'r') as file:
                 for line in file:
@@ -55,7 +55,7 @@ class File_Handler:
         except FileNotFoundError:
             raise Exception(f"Movies file Not Found -> {file_name}")
 
-    def save_movies_to_file(filename : str , movies_list : list[Movie]):
+    def save_movies_to_file(filename : str , movies_list : list[Movie]) -> None:
         # 401:The Shawshank Redemption, 142, 1994, Frank Darabont
         try:
             file = open(filename,'w')
@@ -64,7 +64,7 @@ class File_Handler:
         except IOError as ioerror:
             print(f"Błąd podczas uruchamiania metody zapisu do pliku: {ioerror}")
 
-    def savereviewstofile(filename : str , review_list : list[Review]):
+    def savereviewstofile(filename : str , review_list : list[Review]) -> None:
         # [id_review:id_movie:ocena:desc]
         try:
             file = open(filename,'w')
@@ -73,7 +73,7 @@ class File_Handler:
         except IOError as ioerror:
             print(f"Błąd podczas uruchamiania metody zapisu do pliku: {ioerror}")
 
-    def load_reviews_from_file(file_name : str):
+    def load_reviews_from_file(file_name : str) -> None:
         if len(File_Handler.movie_list) <=0:
             raise Exception("No movies present! Load movies first")
         if len(File_Handler.user_list) <=0:

@@ -16,7 +16,7 @@ class F_I_L_T_R_O_N:
 
 
 
-    def search(self, word : str):
+    def search(self, word : str) -> List[Movie]:
         search_list = set(word.lower().split(sep=' '))
         result_list = list()
         for titleSet, movie in self.movies_dict.items():

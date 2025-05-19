@@ -16,7 +16,7 @@ class Review:
 
 
     #ta metoda upewnia sie ze z naturalnych przyczyn id nie bedzie takie samo jak movie ktorego wczytalismy
-    def overrideID(self, new_id: int):
+    def overrideID(self, new_id: int) -> None:
         # Review.__global_id = new_id + 1
         Review.taken_id.remove(self.id)
 
