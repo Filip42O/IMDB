@@ -27,6 +27,7 @@ if "user" not in st.session_state:
 
 username_input = st.text_input("Username")
 if st.session_state.page == 1:
+
     if username_input:
         st.session_state.user = next((user for user in users if user.username == username_input), None)
         print(st.session_state.user)
@@ -38,6 +39,7 @@ if st.session_state.page == 1:
             st.error(f"Brak użytkownika {username_input} w bazie danych!")
             st.rerun()
 elif st.session_state.page == 2:
+    #st.success(f"Pomyślnie znaleziono usera o ID:{st.session_state.user.id}")
     #haslo jest domyslne to trzeba je ustawic
     if st.session_state.user.getpassword() == "<DEFAULT>":
         st.text("Twoje konto nie ma założonego hasła!")
