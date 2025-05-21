@@ -61,6 +61,7 @@ class File_Handler:
             file = open(filename,'w')
             for movie in movies_list:
                 file.write(f"{movie.id}:{movie.Title}:{movie.Length}:{movie.Year}:{movie.Director}:{movie.getCategories()}\n")
+                file.flush()
         except IOError as ioerror:
             print(f"Błąd podczas uruchamiania metody zapisu do pliku: {ioerror}")
 
@@ -70,6 +71,7 @@ class File_Handler:
             file = open(filename,'w')
             for review in review_list:
                 file.write(f"{review.id}:{review.movie.id}:{review.rating}:{review.description}\n")
+                file.flush()
         except IOError as ioerror:
             print(f"Błąd podczas uruchamiania metody zapisu do pliku: {ioerror}")
 
