@@ -1,0 +1,100 @@
+401::Pulp Fiction::154::1994::Quentin Tarantino::Crime,Drama,Thriller
+402::The Shawshank Redemption::142::1994::Frank Darabont::Drama
+403::The Godfather::175::1972::Francis Ford Coppola::Crime,Drama
+404::Fight Club::139::1999::David Fincher::Drama,Thriller
+405::Inception::148::2010::Christopher Nolan::Action,Science_Fiction,Thriller
+406::The Matrix::136::1999::Lana Wachowski,Lilly Wachowski::Action,Science_Fiction
+407::Goodfellas::146::1990::Martin Scorsese::Crime,Drama,Biographical
+408::The Dark Knight::152::2008::Christopher Nolan::Action,Crime,Drama,Thriller,Superhero
+409::Schindler's List::195::1993::Steven Spielberg::Drama,Historical,War
+410::The Lord of the Rings: The Fellowship of the Ring::178::2001::Peter Jackson::Adventure,Fantasy
+411::Forrest Gump::142::1994::Robert Zemeckis::Drama,Romance
+412::The Silence of the Lambs::118::1991::Jonathan Demme::Crime,Thriller,Horror
+413::Titanic::195::1997::James Cameron::Drama,Romance,Disaster
+414::Star Wars: Episode IV - A New Hope::121::1977::George Lucas::Action,Adventure,Science_Fiction
+415::The Green Mile::189::1999::Frank Darabont::Crime,Drama,Fantasy
+416::Parasite::132::2019::Bong Joon-ho::Comedy,Drama,Thriller
+417::The Departed::151::2006::Martin Scorsese::Crime,Drama,Thriller
+418::Joker::122::2019::Todd Phillips::Crime,Drama,Thriller
+419::Spirited Away::125::2001::Hayao Miyazaki::Animation,Adventure,Fantasy
+420::The Lion King::88::1994::Roger Allers,Rob Minkoff::Animation,Adventure,Drama,Family
+421::The Pianist::150::2002::Roman Polanski::Drama,War,Biographical
+422::The Grand Budapest Hotel::99::2014::Wes Anderson::Adventure,Comedy
+423::Inglourious Basterds::153::2009::Quentin Tarantino::Adventure,Drama,War
+424::Whiplash::106::2014::Damien Chazelle::Drama,Music
+425::The Intouchables::112::2011::Olivier Nakache,Éric Toledano::Comedy,Drama,Biographical
+426::Gladiator::155::2000::Ridley Scott::Action,Adventure,Drama,Historical
+427::The Prestige::130::2006::Christopher Nolan::Drama,Mystery,Science_Fiction,Thriller
+428::The Revenant::156::2015::Alejandro González Iñárritu::Action,Adventure,Drama,Western
+429::The Social Network::120::2010::David Fincher::Drama,Biographical
+430::Get Out::104::2017::Jordan Peele::Horror,Mystery,Thriller
+431::The Shining::146::1980::Stanley Kubrick::Horror,Thriller
+432::Pan's Labyrinth::118::2006::Guillermo del Toro::Drama,Fantasy,War
+433::Oldboy::120::2003::Park Chan-wook::Action,Drama,Mystery,Thriller
+434::Casablanca::102::1942::Michael Curtiz::Drama,Romance,War
+435::Citizen Kane::119::1941::Orson Welles::Drama,Mystery
+436::Psycho::109::1960::Alfred Hitchcock::Horror,Mystery,Thriller
+437::City of God::130::2002::Fernando Meirelles,Kátia Lund::Crime,Drama
+438::Apocalypse Now::147::1979::Francis Ford Coppola::Drama,War
+439::Amélie::122::2001::Jean-Pierre Jeunet::Comedy,Romance
+440::Seven Samurai::207::1954::Akira Kurosawa::Action,Adventure,Drama
+441::Eternal Sunshine of the Spotless Mind::108::2004::Michel Gondry::Drama,Romance,Science_Fiction
+442::Memento::113::2000::Christopher Nolan::Mystery,Thriller
+443::Princess Mononoke::134::1997::Hayao Miyazaki::Animation,Adventure,Fantasy
+444::Cinema Paradiso::124::1988::Giuseppe Tornatore::Drama,Romance
+445::Some Like It Hot::121::1959::Billy Wilder::Comedy,Romance
+446::Braveheart::178::1995::Mel Gibson::Action,Drama,Historical,War
+447::Full Metal Jacket::116::1987::Stanley Kubrick::Drama,War
+448::2001: A Space Odyssey::149::1968::Stanley Kubrick::Adventure,Science_Fiction
+449::Taxi Driver::114::1976::Martin Scorsese::Crime,Drama
+450::The Sixth Sense::107::1999::M. Night Shyamalan::Drama,Mystery,Thriller
+451::A Clockwork Orange::136::1971::Stanley Kubrick::Crime,Drama,Science_Fiction
+452::The Thing::109::1982::John Carpenter::Horror,Mystery,Science_Fiction
+453::Blade Runner::117::1982::Ridley Scott::Action,Science_Fiction,Thriller
+454::The Big Lebowski::117::1998::Joel Coen,Ethan Coen::Comedy,Crime
+455::Fargo::98::1996::Joel Coen,Ethan Coen::Crime,Drama,Thriller
+456::Raging Bull::129::1980::Martin Scorsese::Biographical,Drama,Sports
+457::Alien::117::1979::Ridley Scott::Horror,Science_Fiction
+458::No Country for Old Men::122::2007::Joel Coen,Ethan Coen::Crime,Drama,Thriller
+459::Rear Window::112::1954::Alfred Hitchcock::Mystery,Thriller
+460::Scarface::170::1983::Brian De Palma::Crime,Drama
+461::Toy Story::81::1995::John Lasseter::Animation,Adventure,Comedy,Family
+462::Reservoir Dogs::99::1992::Quentin Tarantino::Crime,Drama,Thriller
+463::Good Will Hunting::126::1997::Gus Van Sant::Drama
+464::The Truman Show::103::1998::Peter Weir::Comedy,Drama,Science_Fiction
+465::Jurassic Park::127::1993::Steven Spielberg::Action,Adventure,Science_Fiction
+466::The Exorcist::122::1973::William Friedkin::Horror
+467::Interstellar::169::2014::Christopher Nolan::Adventure,Drama,Science_Fiction
+468::There Will Be Blood::158::2007::Paul Thomas Anderson::Drama
+469::Back to the Future::116::1985::Robert Zemeckis::Adventure,Comedy,Science_Fiction
+470::Grave of the Fireflies::89::1988::Isao Takahata::Animation,Drama,War
+471::Modern Times::87::1936::Charlie Chaplin::Comedy,Drama,Romance
+472::The Great Dictator::125::1940::Charlie Chaplin::Comedy,Drama,War
+473::Saving Private Ryan::169::1998::Steven Spielberg::Drama,War
+474::The Untouchables::119::1987::Brian De Palma::Crime,Drama,Thriller
+475::The Godfather: Part II::202::1974::Francis Ford Coppola::Crime,Drama
+476::Requiem for a Dream::102::2000::Darren Aronofsky::Drama
+477::Sunset Boulevard::110::1950::Billy Wilder::Drama,Film_Noir
+478::Lawrence of Arabia::216::1962::David Lean::Adventure,Biographical,Drama,Historical,War
+479::Eternal Sunshine of the Spotless Mind::108::2004::Michel Gondry::Drama,Romance,Science_Fiction
+480::A Beautiful Mind::135::2001::Ron Howard::Biographical,Drama
+481::The Apartment::125::1960::Billy Wilder::Comedy,Drama,Romance
+482::Amadeus::160::1984::Miloš Forman::Biographical,Drama,Historical,Musical
+483::Rocky::120::1976::John G. Avildsen::Drama,Sports
+484::Die Hard::132::1988::John McTiernan::Action,Thriller
+485::The Terminator::107::1984::James Cameron::Action,Science_Fiction
+486::American History X::119::1998::Tony Kaye::Crime,Drama
+487::Finding Nemo::100::2003::Andrew Stanton::Animation,Adventure,Comedy,Family
+488::V for Vendetta::132::2005::James McTeigue::Action,Drama,Science_Fiction,Thriller
+489::Gandhi::191::1982::Richard Attenborough::Biographical,Drama,Historical
+490::It's a Wonderful Life::130::1946::Frank Capra::Drama,Family,Fantasy
+491::The Lives of Others::137::2006::Florian Henckel von Donnersmarck::Drama,Thriller
+492::In the Mood for Love::98::2000::Wong Kar-wai::Drama,Romance
+493::WALL·E::98::2008::Andrew Stanton::Animation,Adventure,Family,Science_Fiction
+494::The Seventh Seal::96::1957::Ingmar Bergman::Drama,Fantasy
+495::The Bridge on the River Kwai::161::1957::David Lean::Adventure,Drama,War
+496::Sherlock Jr.::45::1924::Buster Keaton::Action,Comedy
+497::Trainspotting::93::1996::Danny Boyle::Drama
+498::Moonlight::111::2016::Barry Jenkins::Drama
+499::District 9::112::2009::Neill Blomkamp::Action,Science_Fiction,Thriller
+500::Incendies::131::2010::Denis Villeneuve::Drama,Mystery,War
