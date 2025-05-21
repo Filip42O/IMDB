@@ -170,7 +170,13 @@ else:
 
     with tabs[1]:
         st.header("Zarządzanie filmami")
-        st.write("Tu będzie lista filmów.")
+        user : User = st.session_state.user
+        #obslugujemy ze nie ma filmow
+        if len(user.watched_list) == 0:
+            st.text("Obecnie nie obejrzałeś żadnych filmów :(")
+        else:
+            for mov in user.watched_list:
+                st.text(f"{mov}")
 
 
     with tabs[2]:
