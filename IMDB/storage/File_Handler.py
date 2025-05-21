@@ -42,9 +42,19 @@ class File_Handler:
     def saveuserstofile(filename : str , users_list : list[User]) -> None:
         try:
             file = open(filename,'w')
+
             for user in users_list:
-                file.write(f"{user.id}:{user.username}:{user.getpassword()}\n")
+                watched : list[str] = list()
+                watched_ready = ""
+                for mov in user.watched_list:
+                    watched.append(mov.id)
+                for string in watched:
+                    watched_ready += str(string)
+                    watched_ready += ","
+                watched_ready = watched_ready.rstrip(",") #zeby nie bylo na koncu :)
+                file.write(f"{user.id}:{user.username}:{user.getpassword()}:{watched_ready}\n")
                 file.flush()
+                #file.close()
         except IOError as ioerror:
             print(f"Błąd podczas uruchamiania metody zapisu do pliku: {ioerror}")
 
@@ -73,6 +83,7 @@ class File_Handler:
             for movie in movies_list:
                 file.write(f"{movie.id}::{movie.Title}::{movie.Length}::{movie.Year}::{movie.Director}::{movie.getCategories()}\n")
                 file.flush()
+                #file.close()
         except IOError as ioerror:
             print(f"Błąd podczas uruchamiania metody zapisu do pliku: {ioerror}")
 

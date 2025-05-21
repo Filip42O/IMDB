@@ -33,8 +33,9 @@ class User:
         self.username = "<No_Username>"
         self.watched_list = list()
         self.review_list = list()
+        _password = "<DEFAULT>"
 
-    _password = "<DEFAULT>"
+
 
 
     #ta metoda upewnia sie ze z naturalnych przyczyn id nie bedzie takie samo jak usera ktorego wczytalismy

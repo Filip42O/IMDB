@@ -14,6 +14,11 @@ users = File_Handler.loaduserfromfile("./users_saved")
 #         print(mov)
 #     print()
 
+print("movies are:")
 for movie in users[0].watched_list:
     print(movie)
+
+users[-1].setpassword("test")
+
+File_Handler.saveuserstofile("./users_saved",users)
 
