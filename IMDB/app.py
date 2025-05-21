@@ -12,12 +12,12 @@ st.set_page_config(
 )
 
 
-
 def loadusers():
-    #File_Handler.loaduserfromfile("/mount/src/imdb/IMDB/users_saved")
+
     User.clear_data()
     File_Handler.user_list.clear()
-    File_Handler.loaduserfromfile("./users_saved")
+    #File_Handler.loaduserfromfile("./users_saved")
+    File_Handler.loaduserfromfile("/mount/src/imdb/IMDB/users_saved")
     print("loading users!")
     return File_Handler.user_list
 
@@ -32,6 +32,8 @@ def save_users_if_needed():
         except Exception as e:
             print(f"Błąd podczas zapisywania danych: {e}")
             st.error("Wystąpił błąd podczas zapisywania danych")
+
+
 def handle_username_submit():
     username = st.session_state.username_input.lower()
     user = next((user for user in users if user.username == username), None)
@@ -43,6 +45,7 @@ def handle_username_submit():
     else:
         st.session_state.username_error = f"Brak użytkownika {username} w bazie danych!"
         st.session_state.show_password = False
+
 
 def handle_password_submit():
     global users
@@ -71,7 +74,6 @@ def handle_password_submit():
         st.session_state.user = next(u for u in users if u.id == st.session_state.user.id)
         print(f"tu sprawdzam co sie dzieje z passwordem {st.session_state.user.getpassword()}")
 
-
         #test1
         print(f"przed update {st.session_state.user.getpassword()}")
         #refresh naszego user
@@ -86,6 +88,7 @@ def handle_password_submit():
             st.session_state.password_success = "Zalogowano pomyślnie!"
         else:
             st.session_state.password_error = "Nieprawidłowe hasło!"
+
 
 def logout():
     #reset wszystkiego po wylogowaniu
@@ -102,6 +105,7 @@ def logout():
     if "password_error" in st.session_state:
         del st.session_state.password_error
 
+
 #init zmiennych session state
 if "logged" not in st.session_state:
     st.session_state.logged = False
@@ -111,13 +115,11 @@ if "show_password" not in st.session_state:
 if "users_need_save" not in st.session_state:
     st.session_state.users_need_save = False
 
-
 users = loadusers()
 
 #naglowki
 st.header(":orange[IM]:grey[DB]", divider="orange")
 st.header("Imperium mitów, dezinformacji i bredni", divider="grey")
-
 
 #program
 if not st.session_state.logged:
@@ -167,17 +169,15 @@ else:
         st.write(f"ID użytkownika: {st.session_state.user.id}")
         st.write(f"Nazwa użytkownika: {st.session_state.user.username}")
 
-
     with tabs[1]:
         st.header("Zarządzanie filmami")
-        user : User = st.session_state.user
+        user: User = st.session_state.user
         #obslugujemy ze nie ma filmow
         if len(user.watched_list) == 0:
             st.text("Obecnie nie obejrzałeś żadnych filmów :(")
         else:
             for mov in user.watched_list:
                 st.text(f"{mov}")
-
 
     with tabs[2]:
         st.header("Twoje recenzje")
