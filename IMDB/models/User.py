@@ -4,8 +4,7 @@ import bcrypt
 
 class User:
     __global_id = 101
-    watched_list = list()
-    review_list = list()
+
     #za kazdym razem jak przypisujemy id dodajmy je do seta
     taken_id = set()
 
@@ -32,6 +31,8 @@ class User:
         User.taken_id.add(self.id)
         User.__global_id += 1
         self.username = "<No_Username>"
+        self.watched_list = list()
+        self.review_list = list()
 
     _password = "<DEFAULT>"
 

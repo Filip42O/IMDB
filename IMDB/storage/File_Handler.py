@@ -17,11 +17,22 @@ class File_Handler:
                 for line in file:
                     line = line.strip() #czyscimy ze new line
                     elems = line.split(sep=':')
-                    #elems ['101', 'maciekKox', 'hash']
+                    #elems ['101', 'maciekKox', 'hash', filmyid]
                     user = User()
                     user.overrideID(int(elems[0]))
                     user.setusername(elems[1].lower())
                     user.setpasswordNoHash(elems[2])
+
+                    filmy_id_list = elems[3].split(',')
+                    #print(filmy_id_list)
+                    if len(filmy_id_list) != 0:
+                        for mov_id in filmy_id_list:
+                            if mov_id.isdigit(): #naprawa tego ze split robi puste pliki
+                                #szukamy w filmach filmu o id
+                                # print(File_Handler.movie_list[0])
+                                movie = next((movie for movie in File_Handler.movie_list if movie.id == int(mov_id)),None)
+                                if movie is not None:
+                                    user.addwatched(movie)
                     File_Handler.user_list.append(user)
                     result.append(user)
                 return result
@@ -47,7 +58,7 @@ class File_Handler:
                     mov = Movie(elems[1],elems[2],elems[3],elems[4])
 
                     categories = elems[5].split(sep=',')
-                    print(categories)
+                    #print(categories)
                     for category in categories:
                         mov.addcategory(Category[category])
                     mov.overrideID(int(elems[0]))

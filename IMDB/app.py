@@ -15,16 +15,16 @@ st.set_page_config(
 def loadusers():
     User.clear_data()
     File_Handler.user_list.clear()
-    File_Handler.loaduserfromfile("./users_saved")
-    #File_Handler.loaduserfromfile("/mount/src/imdb/IMDB/users_saved")
+    #File_Handler.loaduserfromfile("./users_saved")
+    File_Handler.loaduserfromfile("/mount/src/imdb/IMDB/users_saved")
     print("loading users!")
     return File_Handler.user_list
 
 def loadmovies():
     File_Handler.movie_list.clear()
     Movie.cleardata()
-    File_Handler.loadmoviesfromfile("./movies_saved")
-    #File_Handler.loaduserfromfile("/mount/src/imdb/IMDB/movies_saved")
+    #File_Handler.loadmoviesfromfile("./movies_saved")
+    File_Handler.loaduserfromfile("/mount/src/imdb/IMDB/movies_saved")
     print("loading movies!")
     return File_Handler.movie_list
 
