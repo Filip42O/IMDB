@@ -26,3 +26,5 @@ class Category(Enum):
     Adult_Animation = "Animated films or series aimed at mature audiences, often tackling complex or darker themes."
     Martial_Arts = "Focused on hand-to-hand combat and choreographed fight sequences rooted in Eastern fighting styles."
     Disaster = "Narratives built around large-scale catastrophes—natural or man-made—and human survival efforts."
+    Music = "Films centered on musical performances, musicians, or the music industry, where music itself is a central element of the plot."
+    Film_Noir = "Dark, cynical movies from the 1940s-50s featuring crime, moral ambiguity, shadowy visuals, and fatalistic themes."

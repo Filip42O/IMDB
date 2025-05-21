@@ -13,14 +13,20 @@ st.set_page_config(
 
 
 def loadusers():
-
     User.clear_data()
     File_Handler.user_list.clear()
-    #File_Handler.loaduserfromfile("./users_saved")
-    File_Handler.loaduserfromfile("/mount/src/imdb/IMDB/users_saved")
+    File_Handler.loaduserfromfile("./users_saved")
+    #File_Handler.loaduserfromfile("/mount/src/imdb/IMDB/users_saved")
     print("loading users!")
     return File_Handler.user_list
 
+def loadmovies():
+    File_Handler.movie_list.clear()
+    Movie.cleardata()
+    File_Handler.loadmoviesfromfile("./movies_saved")
+    #File_Handler.loaduserfromfile("/mount/src/imdb/IMDB/movies_saved")
+    print("loading movies!")
+    return File_Handler.movie_list
 
 def save_users_if_needed():
     global users
@@ -109,13 +115,14 @@ def logout():
 #init zmiennych session state
 if "logged" not in st.session_state:
     st.session_state.logged = False
-    st.session_state.user = None
+    st.session_state.user : User = None
 if "show_password" not in st.session_state:
     st.session_state.show_password = False
 if "users_need_save" not in st.session_state:
     st.session_state.users_need_save = False
 
 users = loadusers()
+movies = loadmovies()
 
 #naglowki
 st.header(":orange[IM]:grey[DB]", divider="orange")
@@ -168,6 +175,8 @@ else:
         st.header("Twój profil")
         st.write(f"ID użytkownika: {st.session_state.user.id}")
         st.write(f"Nazwa użytkownika: {st.session_state.user.username}")
+        st.write(f"Ilość obejrzanych filmów: {len(st.session_state.user.watched_list)}")
+        st.write(f"Ilość dodanych recenzji: {len(st.session_state.user.review_list)}")
 
     with tabs[1]:
         st.header("Zarządzanie filmami")

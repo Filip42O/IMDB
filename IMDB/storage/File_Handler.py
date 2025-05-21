@@ -42,12 +42,12 @@ class File_Handler:
             with open(file_name,'r') as file:
                 for line in file:
                     line = line.strip() #czyscimy ze new line
-                    elems = line.split(sep=':')
-                    #elems [401:The Shawshank Redemption, 142, 1994, Frank Darabont]
-                    # ['Science_Fiction', 'Drama', 'Romance']
+                    elems = line.split(sep='::')
+                    #404:The Godfather:175:1972:Francis Ford Coppola:Crime,Drama
                     mov = Movie(elems[1],elems[2],elems[3],elems[4])
-                    #film :Drama
+
                     categories = elems[5].split(sep=',')
+                    print(categories)
                     for category in categories:
                         mov.addcategory(Category[category])
                     mov.overrideID(int(elems[0]))
@@ -60,7 +60,7 @@ class File_Handler:
         try:
             file = open(filename,'w')
             for movie in movies_list:
-                file.write(f"{movie.id}:{movie.Title}:{movie.Length}:{movie.Year}:{movie.Director}:{movie.getCategories()}\n")
+                file.write(f"{movie.id}::{movie.Title}::{movie.Length}::{movie.Year}::{movie.Director}::{movie.getCategories()}\n")
                 file.flush()
         except IOError as ioerror:
             print(f"Błąd podczas uruchamiania metody zapisu do pliku: {ioerror}")
