@@ -27,8 +27,8 @@ if "page" not in st.session_state:
     st.session_state.page = 1
 if "user" not in st.session_state:
     st.session_state.user : User = None
-
-username_input = st.text_input("Username")
+if "username_input" not in st.session_state:
+    username_input = st.text_input("Username")
 if st.session_state.page == 1:
     if username_input:
         st.session_state.user = next((user for user in users if user.username == username_input), None)
@@ -64,6 +64,12 @@ elif st.session_state.page == 2:
                 st.session_state.page = 3
             else:
                 st.error("Hasło nieprawidłowe")
+elif st.session_state.page == 3:
+    #w tym momencie uzytkonik sie zalogowal wiec chcemy mu dac opcje
+    pass
+
+
+
 
 File_Handler.saveuserstofile("./users_saved",users)
 print(f"saved users")
