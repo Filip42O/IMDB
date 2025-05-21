@@ -4,6 +4,10 @@ from models.Category import Category
 class Movie:
     __global_id = 401
     taken_id = set()
+
+    def cleardata():
+        Movie.__global_id = 401
+        Movie.taken_id.clear()
     def __init__(self,Title,Length,Year,Director):
         self.id = Movie.__global_id
         Movie.taken_id.add(self.id)
