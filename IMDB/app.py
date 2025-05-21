@@ -11,7 +11,7 @@ st.set_page_config(
     page_icon=":movie_camera:",
 )
 
-# Zmodyfikowana wersja zapisywania do pliku z kontrolą częstotliwości
+
 
 def loadusers():
     #File_Handler.loaduserfromfile("/mount/src/imdb/IMDB/users_saved")
@@ -53,10 +53,11 @@ def handle_password_submit():
             raise Exception("Użytkownik nagle zniknął z listy ???")
         users.append(st.session_state.user)
         users = User.sort_user_list_by_id(users)
-        # Oznaczamy, że dane wymagają zapisu
+
+        #forcujemy dane do zapisu
         st.session_state.users_need_save = True
 
-        # Zapisujemy dane natychmiast po aktualizacji hasła
+        #instant zapisanie po update hasla
         try:
             File_Handler.saveuserstofile("./users_saved", users)
             print(f"Zapisano hasło dla użytkownika {st.session_state.user.username}")
@@ -87,7 +88,7 @@ def handle_password_submit():
             st.session_state.password_error = "Nieprawidłowe hasło!"
 
 def logout():
-    # Resetowanie stanu sesji przy wylogowaniu
+    #reset wszystkiego po wylogowaniu
     st.session_state.logged = False
     st.session_state.user = None
     st.session_state.show_password = False
@@ -101,7 +102,7 @@ def logout():
     if "password_error" in st.session_state:
         del st.session_state.password_error
 
-# Inicjalizacja stanów sesji
+#init zmiennych session state
 if "logged" not in st.session_state:
     st.session_state.logged = False
     st.session_state.user = None
@@ -113,26 +114,27 @@ if "users_need_save" not in st.session_state:
 
 users = loadusers()
 
-# Nagłówki strony
+#naglowki
 st.header(":orange[IM]:grey[DB]", divider="orange")
 st.header("Imperium mitów, dezinformacji i bredni", divider="grey")
 
-# Główna logika interfejsu
+
+#program
 if not st.session_state.logged:
     st.title("Zaloguj się do systemu")
 
-    # Formularz nazwy użytkownika
+    #username form
     with st.form(key="username_form"):
         st.text_input("Podaj nazwę użytkownika", key="username_input")
         submit_username = st.form_submit_button("Dalej", on_click=handle_username_submit)
 
-    # Wyświetlanie komunikatów o statusie weryfikacji użytkownika
+    #komunikaty
     if "username_success" in st.session_state:
         st.success(st.session_state.username_success)
     if "username_error" in st.session_state:
         st.error(st.session_state.username_error)
 
-    # Formularz hasła - pokazywany tylko gdy użytkownik został znaleziony
+    #password form
     if st.session_state.show_password:
         with st.form(key="password_form"):
 
@@ -145,13 +147,13 @@ if not st.session_state.logged:
                 on_click=handle_password_submit
             )
 
-        # Wyświetlanie komunikatów o statusie weryfikacji hasła
+        #komunikaty hasla
         if "password_success" in st.session_state:
             st.success(st.session_state.password_success)
         if "password_error" in st.session_state:
             st.error(st.session_state.password_error)
 else:
-    # Interfejs po zalogowaniu
+    #interfejs po logowaniu
     st.title(f"Witaj, {st.session_state.user.username}!")
 
     # Tu możesz dodać zawartość panelu użytkownika
@@ -164,20 +166,19 @@ else:
         st.header("Twój profil")
         st.write(f"ID użytkownika: {st.session_state.user.id}")
         st.write(f"Nazwa użytkownika: {st.session_state.user.username}")
-        # Możesz dodać więcej informacji o profilu
+
 
     with tabs[1]:
         st.header("Zarządzanie filmami")
         st.write("Tu będzie lista filmów.")
-        # Dodaj funkcjonalność związaną z filmami
+
 
     with tabs[2]:
         st.header("Twoje recenzje")
         st.write("Tu będą twoje recenzje.")
-        # Dodaj funkcjonalność związaną z recenzjami
 
-    # Przycisk wylogowania
+    #logout button
     if st.button("Wyloguj się", on_click=logout):
-        pass  # Akcja jest obsługiwana przez funkcję callback
+        pass
 
 save_users_if_needed()
