@@ -23,6 +23,10 @@ class User:
     def sort_user_list_by_id(user_list: list['User']) -> list['User']:
         return sorted(user_list, key=lambda user: user.id)
 
+    def clear_data():
+        User.taken_id.clear()
+        User.__global_id = 101
+
     def __init__(self):
         self.id = User.__global_id
         User.taken_id.add(self.id)
@@ -30,6 +34,7 @@ class User:
         self.username = "<No_Username>"
 
     _password = "<DEFAULT>"
+
 
     #ta metoda upewnia sie ze z naturalnych przyczyn id nie bedzie takie samo jak usera ktorego wczytalismy
     def overrideID(self, new_id: int) -> None:
