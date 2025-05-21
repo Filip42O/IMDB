@@ -3,7 +3,6 @@ from models.Movie import Movie
 from models.Review import Review
 from storage.File_Handler import File_Handler
 import streamlit as st
-import os
 
 #/mount/src/imdb/IMDB
 
@@ -11,68 +10,174 @@ st.set_page_config(
     page_title="IMDB",
     page_icon=":movie_camera:",
 )
-st.header(":orange[IM]:grey[DB]", divider="orange")
-st.header("Imperium mitów, dezinformacji i bredni", divider="grey")
 
-@st.cache_data
+# Zmodyfikowana wersja zapisywania do pliku z kontrolą częstotliwości
+
 def loadusers():
     #File_Handler.loaduserfromfile("/mount/src/imdb/IMDB/users_saved")
+    User.clear_data()
+    File_Handler.user_list.clear()
     File_Handler.loaduserfromfile("./users_saved")
+    print("loading users!")
     return File_Handler.user_list
 
 
-users : list[User] = loadusers()
+def save_users_if_needed():
+    global users
+    if "users_need_save" in st.session_state and st.session_state.users_need_save:
+        try:
+            File_Handler.saveuserstofile("./users_saved", users)
+            print("Zapisano dane użytkowników")
+            st.session_state.users_need_save = False
+        except Exception as e:
+            print(f"Błąd podczas zapisywania danych: {e}")
+            st.error("Wystąpił błąd podczas zapisywania danych")
+def handle_username_submit():
+    username = st.session_state.username_input.lower()
+    user = next((user for user in users if user.username == username), None)
 
-if "page" not in st.session_state:
-    st.session_state.page = 1
-if "user" not in st.session_state:
-    st.session_state.user : User = None
-if "username_input" not in st.session_state:
-    username_input = st.text_input("Username")
-if st.session_state.page == 1:
-    if username_input:
-        st.session_state.user = next((user for user in users if user.username == username_input), None)
-        if st.session_state.user is not None:
-            print(st.session_state.user)
-            st.success(f"Pomyślnie znaleziono usera o ID:{st.session_state.user.id}")
-            st.session_state.page = 2
-            st.rerun()
-        else:
-            st.error(f"Brak użytkownika {username_input} w bazie danych!")
-            st.rerun()
-elif st.session_state.page == 2:
-    st.success(f"Pomyślnie znaleziono usera o ID:{st.session_state.user.id}")
-    #haslo jest domyslne to trzeba je ustawic
-    if st.session_state.user.getpassword() == "<DEFAULT>":
-        st.text("Twoje konto nie ma założonego hasła!")
-        input = st.text_input("Podaj nowe hasło",type="password")
-        #jak poda haslo
-        if input:
-            print(f"po input {st.session_state.user}")
-            User.remove_by_id_from_list(users,st.session_state.user.id)
-            st.session_state.user.setpassword(input)
-            st.success("Pomyślnie ustawiono hasło!")
-            users.append(st.session_state.user)#tu dodaje ale to jest nie dobry pomysl
-            users = User.sort_user_list_by_id(users)
-            st.session_state.page = 3
+    if user is not None:
+        st.session_state.user = user
+        st.session_state.show_password = True
+        st.session_state.username_success = f"Znaleziono użytkownika {username}"
     else:
-        password_input = st.text_input("Password",type="password")
-        #uzytkownik cos wpisal
-        if password_input:
-            if st.session_state.user.checkpassword(password_input):
-                st.success("Podano prawidłowe hasło!")
-                st.session_state.page = 3
-            else:
-                st.error("Hasło nieprawidłowe")
-elif st.session_state.page == 3:
-    #w tym momencie uzytkonik sie zalogowal wiec chcemy mu dac opcje
-    pass
+        st.session_state.username_error = f"Brak użytkownika {username} w bazie danych!"
+        st.session_state.show_password = False
+
+def handle_password_submit():
+    global users
+    if st.session_state.user.getpassword() == "<DEFAULT>":
+        #new password init
+        st.session_state.user.setpassword(st.session_state.password_input)
+        if not User.remove_by_id_from_list(users, st.session_state.user.id):
+            raise Exception("Użytkownik nagle zniknął z listy ???")
+        users.append(st.session_state.user)
+        users = User.sort_user_list_by_id(users)
+        # Oznaczamy, że dane wymagają zapisu
+        st.session_state.users_need_save = True
+
+        # Zapisujemy dane natychmiast po aktualizacji hasła
+        try:
+            File_Handler.saveuserstofile("./users_saved", users)
+            print(f"Zapisano hasło dla użytkownika {st.session_state.user.username}")
+            st.session_state.users_need_save = False
+        except Exception as e:
+            st.error("Coś się wysypało w zapisywaniu do pliku podczas aktualizacji hasła!")
+            print(f"Błąd zapisu w aktualizacji hasła: {e}")
+
+        User.clear_data()
+        users = loadusers()
+        st.session_state.user = next(u for u in users if u.id == st.session_state.user.id)
+        print(f"tu sprawdzam co sie dzieje z passwordem {st.session_state.user.getpassword()}")
 
 
+        #test1
+        print(f"przed update {st.session_state.user.getpassword()}")
+        #refresh naszego user
+        st.session_state.user = next(u for u in users if u.id == st.session_state.user.id)
+        #test2
+        print(f"po update {st.session_state.user.getpassword()}")
+        st.session_state.logged = True
+        st.session_state.password_success = "Pomyślnie ustawiono nowe hasło!"
+    else:
+        if st.session_state.user.checkpassword(st.session_state.password_input):
+            st.session_state.logged = True
+            st.session_state.password_success = "Zalogowano pomyślnie!"
+        else:
+            st.session_state.password_error = "Nieprawidłowe hasło!"
+
+def logout():
+    # Resetowanie stanu sesji przy wylogowaniu
+    st.session_state.logged = False
+    st.session_state.user = None
+    st.session_state.show_password = False
+    users.clear()
+    if "username_success" in st.session_state:
+        del st.session_state.username_success
+    if "username_error" in st.session_state:
+        del st.session_state.username_error
+    if "password_success" in st.session_state:
+        del st.session_state.password_success
+    if "password_error" in st.session_state:
+        del st.session_state.password_error
+
+# Inicjalizacja stanów sesji
+if "logged" not in st.session_state:
+    st.session_state.logged = False
+    st.session_state.user = None
+if "show_password" not in st.session_state:
+    st.session_state.show_password = False
+if "users_need_save" not in st.session_state:
+    st.session_state.users_need_save = False
 
 
-File_Handler.saveuserstofile("./users_saved",users)
-print(f"saved users")
-print(f"print last {users[0].checkpassword("turbo")}")
+users = loadusers()
 
-st.stop()
+# Nagłówki strony
+st.header(":orange[IM]:grey[DB]", divider="orange")
+st.header("Imperium mitów, dezinformacji i bredni", divider="grey")
+
+# Główna logika interfejsu
+if not st.session_state.logged:
+    st.title("Zaloguj się do systemu")
+
+    # Formularz nazwy użytkownika
+    with st.form(key="username_form"):
+        st.text_input("Podaj nazwę użytkownika", key="username_input")
+        submit_username = st.form_submit_button("Dalej", on_click=handle_username_submit)
+
+    # Wyświetlanie komunikatów o statusie weryfikacji użytkownika
+    if "username_success" in st.session_state:
+        st.success(st.session_state.username_success)
+    if "username_error" in st.session_state:
+        st.error(st.session_state.username_error)
+
+    # Formularz hasła - pokazywany tylko gdy użytkownik został znaleziony
+    if st.session_state.show_password:
+        with st.form(key="password_form"):
+
+            if st.session_state.user.getpassword() == "<DEFAULT>":
+                st.info("Twoje konto nie ma założonego hasła! Ustaw nowe hasło.")
+
+            st.text_input("Podaj hasło", type="password", key="password_input")
+            submit_password = st.form_submit_button(
+                "Zaloguj się" if st.session_state.user.getpassword() != "<DEFAULT>" else "Ustaw hasło",
+                on_click=handle_password_submit
+            )
+
+        # Wyświetlanie komunikatów o statusie weryfikacji hasła
+        if "password_success" in st.session_state:
+            st.success(st.session_state.password_success)
+        if "password_error" in st.session_state:
+            st.error(st.session_state.password_error)
+else:
+    # Interfejs po zalogowaniu
+    st.title(f"Witaj, {st.session_state.user.username}!")
+
+    # Tu możesz dodać zawartość panelu użytkownika
+    st.write("Jesteś zalogowany. Tutaj będzie panel zarządzania filmami i recenzjami.")
+
+    # Przykładowe zakładki dla zalogowanego użytkownika
+    tabs = st.tabs(["Profil", "Filmy", "Recenzje"])
+
+    with tabs[0]:
+        st.header("Twój profil")
+        st.write(f"ID użytkownika: {st.session_state.user.id}")
+        st.write(f"Nazwa użytkownika: {st.session_state.user.username}")
+        # Możesz dodać więcej informacji o profilu
+
+    with tabs[1]:
+        st.header("Zarządzanie filmami")
+        st.write("Tu będzie lista filmów.")
+        # Dodaj funkcjonalność związaną z filmami
+
+    with tabs[2]:
+        st.header("Twoje recenzje")
+        st.write("Tu będą twoje recenzje.")
+        # Dodaj funkcjonalność związaną z recenzjami
+
+    # Przycisk wylogowania
+    if st.button("Wyloguj się", on_click=logout):
+        pass  # Akcja jest obsługiwana przez funkcję callback
+
+save_users_if_needed()
