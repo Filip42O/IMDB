@@ -308,9 +308,13 @@ else:
         with col2:
             st.image(path_to_nerd, caption="Well actually...",width=100)
         
-        st.pyplot(CHARTEX.get_reviews_chart(reviews, users),clear_figure=True)
+        backed_reviews = reviews.copy()
+        backed_users = users.copy()
+        backed_movies = movies.copy()
         
-        st.pyplot(CHARTEX.get_categories_chart(movies),clear_figure=True)
+        st.pyplot(CHARTEX.get_reviews_chart(backed_reviews, backed_users),clear_figure=True)
+        
+        st.pyplot(CHARTEX.get_categories_chart(backed_movies),clear_figure=True)
     #logout button
     if st.button("Wyloguj się", on_click=logout):
         save_users_if_needed()
