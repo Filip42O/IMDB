@@ -12,8 +12,8 @@ import streamlit as st
 
 #jakas patologia z tym streamlitem i sciezkami robilmy na stale nara essa
 
-#path_prefix = "/mount/src/imdb/IMDB"
-path_prefix = "."
+path_prefix = "/mount/src/imdb/IMDB"
+#path_prefix = "."
 
 path_to_review_file = f"{path_prefix}/reviews_saved"
 
