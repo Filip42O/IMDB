@@ -11,6 +11,8 @@ import streamlit as st
 path_to_review_file = os.path.join(os.getcwd(),"reviews_saved")
 #path_to_review_file = "/mount/src/imdb/IMDB/reviews_saved"
 
+st.text(path_to_review_file)
+
 raise Exception(path_to_review_file)
 
 path_to_movies_file = os.path.join(os.getcwd(),"movies_saved")
