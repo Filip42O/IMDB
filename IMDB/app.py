@@ -27,6 +27,7 @@ path_to_video = f"{path_prefix}/Video-17.mp4"
 
 path_to_nerd = f"{path_prefix}/nerd.png"
 
+
 st.set_page_config(
     page_title="IMDB",
     page_icon=":movie_camera:",
@@ -153,9 +154,12 @@ if "show_password" not in st.session_state:
 if "users_need_save" not in st.session_state:
     st.session_state.users_need_save = False
 
-movies = loadmovies()
-users = loadusers()
-reviews = loadreviews()
+try:
+    movies = loadmovies()
+    users = loadusers()
+    reviews = loadreviews()
+except Exception as e:
+    path_prefix = "/mount/src/imdb/IMDB"
 
 #naglowki
 st.header(":orange[IM]:grey[DB]", divider="orange")
