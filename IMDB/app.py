@@ -20,6 +20,8 @@ path_to_users_file = "/mount/src/imdb/IMDB/users_saved"
 
 path_to_avatar = "/mount/src/imdb/IMDB/avatar.png"
 
+path_to_video = "/mount/src/imdb/IMDB/Video-17.mp4"
+
 st.set_page_config(
     page_title="IMDB",
     page_icon=":movie_camera:",
@@ -179,6 +181,7 @@ if not st.session_state.logged:
             st.success(st.session_state.password_success)
         if "password_error" in st.session_state:
             st.error(st.session_state.password_error)
+    st.video(path_to_video, format="video/mp4", start_time=0,loop=True, autoplay=False)
 else:
     
     #interfejs po logowaniu
