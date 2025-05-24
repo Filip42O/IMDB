@@ -87,6 +87,9 @@ class User:
     def clonewatched(self, Movies_list: list[Movie]) -> None:
         for mov in Movies_list:
             self.addwatched(mov)
+    
+    def movie_in_user_by_id(self,movie_id : int) -> bool:
+        return movie_id in [movie.id for movie in self.watched_list]
 
     #REVIEWS
     def addreview(self, Review) -> None:
