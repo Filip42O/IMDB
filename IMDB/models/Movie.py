@@ -29,8 +29,8 @@ class Movie:
         result = ""
         for category in self.Categories:
             result += (str(category.name))
-            result += ","
-        result = result.rstrip(",")
+            result += ", "
+        result = result.rstrip(", ")
         return result
 
     def showCategories(self) -> list[str]:
@@ -63,7 +63,7 @@ class Movie:
         return False
 
     def niceformat(self) -> str:
-        return f"{self.Title} - {self.Year} - {self.Director} - {self.getCategories().replace(']',' ').replace('[',' ').replace(', ',' ')}"
+        return f"{self.Title} - {self.Year} - {self.Director} - {self.getCategories()}"
 
     def __str__(self):
         return f"[{self.id}:{self.Title} from {self.Year} [Length:{self.Length}] by {self.Director} Categories: {self.showCategories()}]"
