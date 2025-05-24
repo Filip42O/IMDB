@@ -11,23 +11,21 @@ import streamlit as st
 #/mount/src/imdb/IMDB
 
 #jakas patologia z tym streamlitem i sciezkami robilmy na stale nara essa
-#path_to_review_file = os.path.join(os.getcwd(),"reviews_saved")
-path_to_review_file = "/mount/src/imdb/IMDB/reviews_saved"
 
-#path_to_movies_file = os.path.join(os.getcwd(),"movies_saved")
-path_to_movies_file = "/mount/src/imdb/IMDB/movies_saved"
+#path_prefix = "/mount/src/imdb/IMDB"
+path_prefix = "."
 
-#path_to_users_file = os.path.join(os.getcwd(),"users_saved")
-path_to_users_file = "/mount/src/imdb/IMDB/users_saved"
+path_to_review_file = f"{path_prefix}/reviews_saved"
 
-#path_to_avatar = os.path.join(os.getcwd(),"avatar.png")
-path_to_avatar = "/mount/src/imdb/IMDB/avatar.png"
+path_to_movies_file = f"{path_prefix}/movies_saved"
 
-#path_to_video = os.path.join(os.getcwd(),"Video-17.mp4")
-path_to_video = "/mount/src/imdb/IMDB/Video-17.mp4"
+path_to_users_file = f"{path_prefix}/users_saved"
 
-#path_to_nerd = os.path.join(os.getcwd(),"nerd.png")
-path_to_nerd = "/mount/src/imdb/IMDB/nerd.png"
+path_to_avatar = f"{path_prefix}/avatar.png"
+
+path_to_video = f"{path_prefix}/Video-17.mp4"
+
+path_to_nerd = f"{path_prefix}/nerd.png"
 
 st.set_page_config(
     page_title="IMDB",
@@ -70,6 +68,7 @@ def save_users_if_needed():
 
 
 def handle_username_submit():
+    global users
     username = st.session_state.username_input.lower()
     user_looker = next((u for u in users if u.username == username), None)
 
@@ -78,8 +77,17 @@ def handle_username_submit():
         st.session_state.show_password = True
         st.session_state.username_success = f"Znaleziono użytkownika {username}"
     else:
-        st.session_state.username_error = f"Brak użytkownika {username} w bazie danych!"
-        st.session_state.show_password = False
+        #dodajemy instant do bazy
+        new_user = User()
+        new_user.setusername(username)
+        new_user._password = "<DEFAULT>"
+        users.append(new_user)
+
+        st.session_state.user = new_user
+        File_Handler.saveuserstofile("./users_saved", users)
+        
+        #st.session_state.username_error = f"Brak użytkownika {username} w bazie danych!"
+        st.session_state.show_password = True
 
 
 def handle_password_submit():
@@ -88,7 +96,8 @@ def handle_password_submit():
     if st.session_state.user.getpassword() == "<DEFAULT>":
         print(f"przed update{st.session_state.user.getpassword()}")
         st.session_state.user.setpassword(st.session_state.password_input)
-        print(f"po update{st.session_state.user.getpassword()}")
+        print(f"po update[{st.session_state.password_input}]")
+        print(f"po update i po hashu{st.session_state.user.getpassword()}")
         if not User.remove_by_id_from_list(users, st.session_state.user.id):
             raise Exception("Użytkownik nagle zniknął z listy ???")
 
