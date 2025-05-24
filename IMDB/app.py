@@ -6,6 +6,15 @@ import streamlit as st
 
 #/mount/src/imdb/IMDB
 
+path_to_review_file = "./reviews_saved"
+#path_to_review_file = "/mount/src/imdb/IMDB/reviews_saved"
+
+path_to_movies_file = "./movies_saved"
+#path_to_movies_file = "/mount/src/imdb/IMDB/movies_saved"
+
+path_to_users_file = "./users_saved"
+#path_to_users_file = "/mount/src/imdb/IMDB/users_saved"
+
 st.set_page_config(
     page_title="IMDB",
     page_icon=":movie_camera:",
@@ -15,18 +24,25 @@ st.set_page_config(
 def loadusers():
     User.clear_data()
     File_Handler.user_list.clear()
-    #File_Handler.loaduserfromfile("./users_saved")
-    File_Handler.loaduserfromfile("/mount/src/imdb/IMDB/users_saved")
-    #print("loading users!")
+    File_Handler.loaduserfromfile(path_to_users_file)
+    #File_Handler.loaduserfromfile("/mount/src/imdb/IMDB/users_saved")
+    #print("Load users ran !")
     return File_Handler.user_list
 
 def loadmovies():
     File_Handler.movie_list.clear()
     Movie.cleardata()
-    #File_Handler.loadmoviesfromfile("./movies_saved")
-    File_Handler.loaduserfromfile("/mount/src/imdb/IMDB/movies_saved")
+    File_Handler.loadmoviesfromfile(path_to_movies_file)
+    #File_Handler.loaduserfromfile("/mount/src/imdb/IMDB/movies_saved")
     #print("loading movies!")
     return File_Handler.movie_list
+
+def loadreviews():
+    File_Handler.review_list.clear()
+    File_Handler.load_reviews_from_file(path_to_review_file)
+    #File_Handler.loadreviewfromfile("/mount/src/imdb/IMDB/reviews_saved")
+    #print("Loaded reviews!")
+    return File_Handler.review_list
 
 def save_users_if_needed():
     global users
@@ -118,6 +134,7 @@ if "users_need_save" not in st.session_state:
 
 movies = loadmovies()
 users = loadusers()
+reviews = loadreviews()
 
 
 #naglowki
@@ -174,16 +191,70 @@ else:
         st.write(f"Nazwa użytkownika: {st.session_state.user.username}")
         st.write(f"Ilość obejrzanych filmów: {len(st.session_state.user.watched_list)}")
         st.write(f"Ilość dodanych recenzji: {len(st.session_state.user.review_list)}")
+        st.image
 
     with tabs[1]:
         st.header("Zarządzanie filmami")
         user: User = st.session_state.user
-        #obslugujemy ze nie ma filmow
+
+        # Button to add a new movie from the list of all movies
+        if st.button("Dodaj nowy film"):
+            st.session_state.show_add_movie = True
+
+        if "show_add_movie" in st.session_state and st.session_state.show_add_movie is True:
+            st.subheader("Wybierz film do dodania")
+            all_movies = movies  # Assuming 'movies' contains all available movies
+            for movie in all_movies:
+                if movie not in user.watched_list:
+                    if st.button(f"Dodaj {movie.Title}",key=f"addfilm {movie.id}"):
+                        st.session_state.user.watched_list.append(movie)
+                        save_users_if_needed = True
+                        st.rerun()
+
+        # Display watched movies
         if len(user.watched_list) == 0:
             st.text("Obecnie nie obejrzałeś żadnych filmów :(")
         else:
             for mov in user.watched_list:
-                st.text(f"{mov.niceformat()}")
+                col1, col2, col3 = st.columns([3, 1, 1])
+                with col1:
+                    st.text(f"{mov.niceformat()}")
+                #to dziala super
+                with col2:
+                    if st.button(f"Usuń",type="primary", key=f"usun {mov.id}"):
+                        
+                        if User.remove_by_id_from_list(users, user.id):
+                            print(f"Usunięto użytkownika {user.username} z listy użytkowników")
+                        else:
+                            raise Exception(f"Nie można usunąć {user.username} w usuwaniu filmu! ")
+                        
+                        user.watched_list.remove(mov)
+                        users.append(user)
+                        
+                        File_Handler.saveuserstofile("./users_saved", users)#insta save do pliku
+                        st.rerun()
+                with col3:
+                    if st.button(f"Recenzuj", type="primary", key=f"recenzja {mov.id}"):
+                        st.session_state.show_review_form : Movie = mov
+
+        #recenzja form
+        if "show_review_form" in st.session_state and st.session_state.show_review_form is not None:
+            movie_to_review : Movie = st.session_state.show_review_form
+            st.subheader(f"Dodaj recenzję do filmu -> {movie_to_review.Title}")
+            #rating = st.slider("Ocena", 0, 10.0, step=0.1, key="review_rating")
+            rating = st.feedback(options="stars",key="review_rating")
+            description = st.text_area("Opis recenzji", key="review_description")
+            if st.button("Zapisz recenzję"):
+                new_review = Review(movie=movie_to_review, rating=(rating+1)*2, description=description,user_id=user.id)
+                user.review_list.append(new_review)
+                reviews.append(new_review)
+                #instant zapis do pliku
+                User.remove_by_id_from_list(users, user.id)
+                users.append(user)
+                File_Handler.savereviewstofile(path_to_review_file, reviews)
+                #koniec zapisu
+                st.session_state.show_review_form = None
+                st.rerun()
 
     with tabs[2]:
         st.header("Twoje recenzje")

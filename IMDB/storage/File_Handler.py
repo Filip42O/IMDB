@@ -88,11 +88,11 @@ class File_Handler:
             print(f"Błąd podczas uruchamiania metody zapisu do pliku: {ioerror}")
 
     def savereviewstofile(filename : str , review_list : list[Review]) -> None:
-        # [id_review:id_movie:ocena:desc]
+        # [id_review:id_movie:id_user:ocena:desc]
         try:
             file = open(filename,'w')
             for review in review_list:
-                file.write(f"{review.id}:{review.movie.id}:{review.rating}:{review.description}\n")
+                file.write(f"{review.id}:{review.movie.id}:{review.user_id}:{review.rating}:{review.description}\n")
                 file.flush()
         except IOError as ioerror:
             print(f"Błąd podczas uruchamiania metody zapisu do pliku: {ioerror}")
@@ -115,7 +115,7 @@ class File_Handler:
                         raise Exception(f"Movie ID:{elems[1]} not found!")
                     if usr is None:
                         raise Exception(f"User ID:{elems[2]} not found!")
-                    rev = Review(mov,float(elems[3]),elems[4])
+                    rev = Review(mov,float(elems[3]),elems[4],elems[2])
                     rev.overrideID(int(elems[0]))
                     #mozliwe ze tu dajemu kopii a nie oryginalowi
                     usr.addreview(rev)

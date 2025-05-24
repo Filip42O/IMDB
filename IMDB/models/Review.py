@@ -5,7 +5,7 @@ class Review:
     __global_id = 501
     taken_id = set()
 
-    def __init__(self, movie : Movie, rating : float, description : str):
+    def __init__(self, movie : Movie, rating : float, description : str, user_id: int):
         self.id = Review.__global_id
         Review.taken_id.add(self.id)
         Review.__global_id += 1
@@ -13,6 +13,7 @@ class Review:
         self.rating = rating
         self.description = description
         self.movie = movie
+        self.user_id = user_id
 
 
     #ta metoda upewnia sie ze z naturalnych przyczyn id nie bedzie takie samo jak movie ktorego wczytalismy
