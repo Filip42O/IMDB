@@ -18,6 +18,8 @@ path_to_movies_file = "/mount/src/imdb/IMDB/movies_saved"
 #path_to_users_file = os.path.join(os.getcwd(),"users_saved")
 path_to_users_file = "/mount/src/imdb/IMDB/users_saved"
 
+path_to_avatar = "/mount/src/imdb/IMDB/avatar.png"
+
 st.set_page_config(
     page_title="IMDB",
     page_icon=":movie_camera:",
@@ -191,7 +193,7 @@ else:
         st.write(f"Nazwa użytkownika: {st.session_state.user.username}")
         st.write(f"Ilość obejrzanych filmów: {len(st.session_state.user.watched_list)}")
         st.write(f"Ilość dodanych recenzji: {len(st.session_state.user.review_list)}")
-        st.image("./avatar.png",caption="Sigma sigma boi")
+        st.image(path_to_avatar,caption="Sigma sigma boi")
 
     with tabs[1]:
         st.header("Zarządzanie filmami")
