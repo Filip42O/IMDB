@@ -9,18 +9,23 @@ import streamlit as st
 #/mount/src/imdb/IMDB
 
 #jakas patologia z tym streamlitem i sciezkami robilmy na stale nara essa
-#path_to_review_file = os.path.join(os.getcwd(),"reviews_saved")
-path_to_review_file = "/mount/src/imdb/IMDB/reviews_saved"
+path_to_review_file = os.path.join(os.getcwd(),"reviews_saved")
+#path_to_review_file = "/mount/src/imdb/IMDB/reviews_saved"
 
-#path_to_movies_file = os.path.join(os.getcwd(),"movies_saved")
-path_to_movies_file = "/mount/src/imdb/IMDB/movies_saved"
+path_to_movies_file = os.path.join(os.getcwd(),"movies_saved")
+#path_to_movies_file = "/mount/src/imdb/IMDB/movies_saved"
 
-#path_to_users_file = os.path.join(os.getcwd(),"users_saved")
-path_to_users_file = "/mount/src/imdb/IMDB/users_saved"
+path_to_users_file = os.path.join(os.getcwd(),"users_saved")
+#path_to_users_file = "/mount/src/imdb/IMDB/users_saved"
 
-path_to_avatar = "/mount/src/imdb/IMDB/avatar.png"
+path_to_avatar = os.path.join(os.getcwd(),"avatar.png")
+#path_to_avatar = "/mount/src/imdb/IMDB/avatar.png"
 
-path_to_video = "/mount/src/imdb/IMDB/Video-17.mp4"
+path_to_video = os.path.join(os.getcwd(),"Video-17.mp4")
+#path_to_video = "/mount/src/imdb/IMDB/Video-17.mp4"
+
+path_to_nerd = os.path.join(os.getcwd(),"nerd.png")
+#path_to_nerd = "/mount/src/imdb/IMDB/nerd.png"
 
 st.set_page_config(
     page_title="IMDB",
@@ -188,7 +193,7 @@ else:
     st.title(f"Witaj, :blue[{st.session_state.user.username}]!")
 
     #init tabelek
-    tabs = st.tabs(["Profil", "Filmy", "Recenzje"])
+    tabs = st.tabs(["Profil", "Filmy", "Recenzje","Statystyki"])
 
     with tabs[0]:
         st.header("Twój profil")
@@ -295,7 +300,12 @@ else:
                         raise Exception(f"Nie można usunąć recenzji {review.id} w usuwaniu recenzji!")
                     File_Handler.savereviewstofile(path_to_review_file, reviews)
                     st.rerun()
-
+    with tabs[3]:
+        col1 , col2 = st.columns([1,3])
+        with col1:
+            st.header("Statystyki")
+        with col2:
+            st.image(path_to_nerd, caption="Well actually...",width=100)
     #logout button
     if st.button("Wyloguj się", on_click=logout):
         save_users_if_needed()
