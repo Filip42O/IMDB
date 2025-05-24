@@ -1,3 +1,5 @@
+import os.path
+
 from models.User import User
 from models.Movie import Movie
 from models.Review import Review
@@ -6,13 +8,13 @@ import streamlit as st
 
 #/mount/src/imdb/IMDB
 
-path_to_review_file = "./reviews_saved"
+path_to_review_file = os.path.join("./reviews_saved")
 #path_to_review_file = "/mount/src/imdb/IMDB/reviews_saved"
 
-path_to_movies_file = "./movies_saved"
+path_to_movies_file = os.path.join("./movies_saved")
 #path_to_movies_file = "/mount/src/imdb/IMDB/movies_saved"
 
-path_to_users_file = "./users_saved"
+path_to_users_file = os.path.join("./users_saved")
 #path_to_users_file = "/mount/src/imdb/IMDB/users_saved"
 
 st.set_page_config(
