@@ -100,7 +100,7 @@ def handle_password_submit():
         print(f"po update[{st.session_state.password_input}]")
         print(f"po update i po hashu{st.session_state.user.getpassword()}")
         if not User.remove_by_id_from_list(users, st.session_state.user.id):
-            raise Exception("Użytkownik nagle zniknął z listy ???")
+            #raise Exception("Użytkownik nagle zniknął z listy ???")
 
         users.append(st.session_state.user)
         users = User.sort_user_list_by_id(users)
