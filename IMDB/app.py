@@ -1,5 +1,5 @@
 import os.path
-
+import time
 from models.User import User
 from models.Movie import Movie
 from models.Review import Review
@@ -11,23 +11,23 @@ import streamlit as st
 #/mount/src/imdb/IMDB
 
 #jakas patologia z tym streamlitem i sciezkami robilmy na stale nara essa
-path_to_review_file = os.path.join(os.getcwd(),"reviews_saved")
-#path_to_review_file = "/mount/src/imdb/IMDB/reviews_saved"
+#path_to_review_file = os.path.join(os.getcwd(),"reviews_saved")
+path_to_review_file = "/mount/src/imdb/IMDB/reviews_saved"
 
-path_to_movies_file = os.path.join(os.getcwd(),"movies_saved")
-#path_to_movies_file = "/mount/src/imdb/IMDB/movies_saved"
+#path_to_movies_file = os.path.join(os.getcwd(),"movies_saved")
+path_to_movies_file = "/mount/src/imdb/IMDB/movies_saved"
 
-path_to_users_file = os.path.join(os.getcwd(),"users_saved")
-#path_to_users_file = "/mount/src/imdb/IMDB/users_saved"
+#path_to_users_file = os.path.join(os.getcwd(),"users_saved")
+path_to_users_file = "/mount/src/imdb/IMDB/users_saved"
 
-path_to_avatar = os.path.join(os.getcwd(),"avatar.png")
-#path_to_avatar = "/mount/src/imdb/IMDB/avatar.png"
+#path_to_avatar = os.path.join(os.getcwd(),"avatar.png")
+path_to_avatar = "/mount/src/imdb/IMDB/avatar.png"
 
-path_to_video = os.path.join(os.getcwd(),"Video-17.mp4")
-#path_to_video = "/mount/src/imdb/IMDB/Video-17.mp4"
+#path_to_video = os.path.join(os.getcwd(),"Video-17.mp4")
+path_to_video = "/mount/src/imdb/IMDB/Video-17.mp4"
 
-path_to_nerd = os.path.join(os.getcwd(),"nerd.png")
-#path_to_nerd = "/mount/src/imdb/IMDB/nerd.png"
+#path_to_nerd = os.path.join(os.getcwd(),"nerd.png")
+path_to_nerd = "/mount/src/imdb/IMDB/nerd.png"
 
 st.set_page_config(
     page_title="IMDB",
@@ -147,7 +147,6 @@ if "users_need_save" not in st.session_state:
 movies = loadmovies()
 users = loadusers()
 reviews = loadreviews()
-
 
 #naglowki
 st.header(":orange[IM]:grey[DB]", divider="orange")
@@ -309,7 +308,9 @@ else:
         with col2:
             st.image(path_to_nerd, caption="Well actually...",width=100)
         
-        st.pyplot(CHARTEX.get_categories_chart(movies))
+        st.pyplot(CHARTEX.get_reviews_chart(reviews, users),clear_figure=True)
+        
+        st.pyplot(CHARTEX.get_categories_chart(movies),clear_figure=True)
     #logout button
     if st.button("Wyloguj się", on_click=logout):
         save_users_if_needed()

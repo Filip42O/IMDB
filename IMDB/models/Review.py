@@ -35,7 +35,7 @@ class Review:
     def get_reviews_by_user_id(user_id: int, list_to_search : list['Review']) -> list['Review']:
         result = list()
         for review in list_to_search:
-            print(review.user_id)
+            #print(review.user_id)
             if int(review.user_id) == int(user_id): #trzeba castowac do inta
                 result.append(review)
         return result
