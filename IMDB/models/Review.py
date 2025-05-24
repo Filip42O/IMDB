@@ -5,6 +5,11 @@ class Review:
     __global_id = 501
     taken_id = set()
 
+    
+    def cleardata() -> None:
+        Review.__global_id = 501
+        Review.taken_id.clear()
+    
     def __init__(self, movie : Movie, rating : float, description : str, user_id: int):
         self.id = Review.__global_id
         Review.taken_id.add(self.id)

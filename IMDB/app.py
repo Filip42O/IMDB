@@ -87,6 +87,8 @@ def handle_username_submit():
         st.session_state.user = new_user
         File_Handler.saveuserstofile("./users_saved", users)
         
+        User.clear_data()
+        users = loadusers() #reload users
         #st.session_state.username_error = f"Brak użytkownika {username} w bazie danych!"
         st.session_state.show_password = True
 
@@ -154,6 +156,11 @@ if "show_password" not in st.session_state:
     st.session_state.show_password = False
 if "users_need_save" not in st.session_state:
     st.session_state.users_need_save = False
+
+#in case
+User.clear_data()
+Movie.cleardata()
+Review.cleardata()
 
 movies = loadmovies()
 users = loadusers()
@@ -259,7 +266,7 @@ else:
                     if st.button(f"Usuń",type="primary", key=f"usun {mov.id}"):
                         
                         if User.remove_by_id_from_list(users, user.id):
-                            print(f"Usunięto użytkownika {user.username} z listy użytkowników")
+                            print(f"Przeładowano użytkownika {user.username} na liście użytkowników")
                         else:
                             raise Exception(f"Nie można usunąć {user.username} w usuwaniu filmu! ")
                         
@@ -322,11 +329,10 @@ else:
         
         backed_reviews = reviews.copy()
         backed_users = users.copy()
-        backed_movies = movies.copy()
         
         st.pyplot(CHARTEX.get_reviews_chart(backed_reviews, backed_users),clear_figure=True)
         
-        st.pyplot(CHARTEX.get_categories_chart(backed_movies),clear_figure=True)
+        st.pyplot(CHARTEX.get_categories_chart(movies),clear_figure=True)
     #logout button
     if st.button("Wyloguj się", on_click=logout):
         save_users_if_needed()
