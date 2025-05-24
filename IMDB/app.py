@@ -12,8 +12,8 @@ import streamlit as st
 
 #jakas patologia z tym streamlitem i sciezkami robilmy na stale nara essa
 
-#path_prefix = "/mount/src/imdb/IMDB"
-path_prefix = "."
+path_prefix = "/mount/src/imdb/IMDB"
+#path_prefix = "."
 
 path_to_review_file = f"{path_prefix}/reviews_saved"
 
@@ -154,12 +154,10 @@ if "show_password" not in st.session_state:
 if "users_need_save" not in st.session_state:
     st.session_state.users_need_save = False
 
-try:
-    movies = loadmovies()
-    users = loadusers()
-    reviews = loadreviews()
-except Exception as e:
-    path_prefix = "/mount/src/imdb/IMDB"
+movies = loadmovies()
+users = loadusers()
+reviews = loadreviews()
+
 
 #naglowki
 st.header(":orange[IM]:grey[DB]", divider="orange")
