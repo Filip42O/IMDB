@@ -115,7 +115,7 @@ class File_Handler:
                         raise Exception(f"Movie ID:{elems[1]} not found!")
                     if usr is None:
                         raise Exception(f"User ID:{elems[2]} not found!")
-                    rev = Review(mov,float(elems[3]),elems[4],elems[2])
+                    rev = Review(mov,float(elems[3]),elems[4],int(elems[2]))
                     rev.overrideID(int(elems[0]))
                     #mozliwe ze tu dajemu kopii a nie oryginalowi
                     usr.addreview(rev)
