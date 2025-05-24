@@ -20,7 +20,6 @@ st.set_page_config(
     page_icon=":movie_camera:",
 )
 
-
 def loadusers():
     User.clear_data()
     File_Handler.user_list.clear()
@@ -106,7 +105,6 @@ def handle_password_submit():
         else:
             st.session_state.password_error = "Nieprawidłowe hasło!"
 
-
 def logout():
     #reset wszystkiego po wylogowaniu
     st.session_state.logged = False
@@ -171,18 +169,17 @@ if not st.session_state.logged:
             )
 
         #komunikaty hasla
+        
         if "password_success" in st.session_state:
             st.success(st.session_state.password_success)
         if "password_error" in st.session_state:
             st.error(st.session_state.password_error)
 else:
+    
     #interfejs po logowaniu
-    st.title(f"Witaj, {st.session_state.user.username}!")
+    st.title(f"Witaj, :blue[{st.session_state.user.username}]!")
 
-    # Tu możesz dodać zawartość panelu użytkownika
-    st.write("Jesteś zalogowany. Tutaj będzie panel zarządzania filmami i recenzjami.")
-
-    # Przykładowe zakładki dla zalogowanego użytkownika
+    #init tabelek
     tabs = st.tabs(["Profil", "Filmy", "Recenzje"])
 
     with tabs[0]:
@@ -191,32 +188,44 @@ else:
         st.write(f"Nazwa użytkownika: {st.session_state.user.username}")
         st.write(f"Ilość obejrzanych filmów: {len(st.session_state.user.watched_list)}")
         st.write(f"Ilość dodanych recenzji: {len(st.session_state.user.review_list)}")
-        st.image
+        st.image("./avatar.png",caption="Sigma sigma boi")
 
     with tabs[1]:
         st.header("Zarządzanie filmami")
         user: User = st.session_state.user
 
-        # Button to add a new movie from the list of all movies
+        #dodawanie filmow
         if st.button("Dodaj nowy film"):
             st.session_state.show_add_movie = True
 
+
         if "show_add_movie" in st.session_state and st.session_state.show_add_movie is True:
             st.subheader("Wybierz film do dodania")
-            all_movies = movies  # Assuming 'movies' contains all available movies
-            for movie in all_movies:
-                if movie not in user.watched_list:
-                    if st.button(f"Dodaj {movie.Title}",key=f"addfilm {movie.id}"):
-                        st.session_state.user.watched_list.append(movie)
-                        save_users_if_needed = True
-                        st.rerun()
+        
+            #duplikuje nam filmy
+            movie_titles = [movie.Title for movie in movies if not user.movie_in_user_by_id(movie.id)]
 
-        # Display watched movies
+            selected_movie_title = st.selectbox("Wybierz film", options=movie_titles, key="movie_select")
+
+            if st.button("Dodaj wybrany film"):
+                selected_movie = next((movie for movie in movies if movie.Title == selected_movie_title), None)
+                if selected_movie:
+                    
+                    
+                    #saving again
+                    User.remove_by_id_from_list(users, user.id)
+                    user.watched_list.append(selected_movie)
+                    users.append(user)
+                    File_Handler.saveuserstofile(path_to_users_file, users)
+                    st.session_state.show_add_movie = False
+                    st.rerun()
+
+        #wyswietlanie filmow
         if len(user.watched_list) == 0:
             st.text("Obecnie nie obejrzałeś żadnych filmów :(")
         else:
             for mov in user.watched_list:
-                col1, col2, col3 = st.columns([3, 1, 1])
+                col1, col2, col3 = st.columns([3, 1, 3])
                 with col1:
                     st.text(f"{mov.niceformat()}")
                 #to dziala super
@@ -234,7 +243,7 @@ else:
                         File_Handler.saveuserstofile("./users_saved", users)#insta save do pliku
                         st.rerun()
                 with col3:
-                    if st.button(f"Recenzuj", type="primary", key=f"recenzja {mov.id}"):
+                    if st.button(f"Recenzuj", type="secondary", key=f"recenzja {mov.id}"):
                         st.session_state.show_review_form : Movie = mov
 
         #recenzja form
@@ -258,7 +267,26 @@ else:
 
     with tabs[2]:
         st.header("Twoje recenzje")
-        st.write("Tu będą twoje recenzje.")
+        user_reviews = Review.get_reviews_by_user_id(user.id, reviews)    
+        if len(user_reviews) == 0:
+            st.text("Nie dodałeś jeszcze żadnych recenzji :(")
+            pass
+        
+        
+        
+        for review in user_reviews:
+            col1,col2 = st.columns([3,1])
+            with col1:
+                st.text(f"{review.movie.Title} - {review.rating}/10")
+                st.text(f"{review.description}")
+            with col2:
+                if st.button("Usuń", key=f"delete_review {review.id}", type="primary"):
+                    if Review.remove_by_id_from_list(reviews, review.id):
+                        print(f"Usunięto recenzję {review.id} z listy recenzji")
+                    else:
+                        raise Exception(f"Nie można usunąć recenzji {review.id} w usuwaniu recenzji!")
+                    File_Handler.savereviewstofile(path_to_review_file, reviews)
+                    st.rerun()
 
     #logout button
     if st.button("Wyloguj się", on_click=logout):
