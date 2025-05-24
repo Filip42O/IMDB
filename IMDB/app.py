@@ -8,13 +8,13 @@ import streamlit as st
 
 #/mount/src/imdb/IMDB
 
-path_to_review_file = os.path.join(os.getcwd(),"./reviews_saved")
+path_to_review_file = os.path.join(os.getcwd(),"reviews_saved")
 #path_to_review_file = "/mount/src/imdb/IMDB/reviews_saved"
 
-path_to_movies_file = os.path.join(os.getcwd(),"./movies_saved")
+path_to_movies_file = os.path.join(os.getcwd(),"movies_saved")
 #path_to_movies_file = "/mount/src/imdb/IMDB/movies_saved"
 
-path_to_users_file = os.path.join(os.getcwd(),"./users_saved")
+path_to_users_file = os.path.join(os.getcwd(),"users_saved")
 #path_to_users_file = "/mount/src/imdb/IMDB/users_saved"
 
 st.set_page_config(
