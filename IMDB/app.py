@@ -3,7 +3,9 @@ import os.path
 from models.User import User
 from models.Movie import Movie
 from models.Review import Review
+from models.Chartex import CHARTEX
 from storage.File_Handler import File_Handler
+
 import streamlit as st
 
 #/mount/src/imdb/IMDB
@@ -306,6 +308,8 @@ else:
             st.header("Statystyki")
         with col2:
             st.image(path_to_nerd, caption="Well actually...",width=100)
+        
+        st.pyplot(CHARTEX.get_categories_chart(movies))
     #logout button
     if st.button("Wyloguj się", on_click=logout):
         save_users_if_needed()
