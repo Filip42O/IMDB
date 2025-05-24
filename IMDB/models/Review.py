@@ -31,6 +31,23 @@ class Review:
             self.id = new_id
             Movie.taken_id.add(self.id)
             Movie.__global_id = max(Movie.taken_id) + 1
+            
+    def get_reviews_by_user_id(user_id: int, list_to_search : list['Review']) -> list['Review']:
+        result = list()
+        for review in list_to_search:
+            print(review.user_id)
+            if int(review.user_id) == int(user_id): #trzeba castowac do inta
+                result.append(review)
+        return result
+    #true jak success
+    def remove_by_id_from_list(review_list: list['Review'], id: int) -> bool:
+        #returns true if removed, false if not
+        for i in range(len(review_list)):
+            if id == review_list[i].id:
+                review_list.pop(i)
+                return True
+        return False
+    
     def __str__(self):
-        return f"Review:[{self.id}] for {self.movie}: {self.rating}/10 -> {self.description}"
+        return f"Review:[{self.id}] by {self.user_id} for {self.movie}: {self.rating}/10 -> {self.description}"
 
