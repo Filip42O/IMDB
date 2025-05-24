@@ -1,2 +1,3 @@
 streamlit
 bcrypt
+matplotlib.pyplot

@@ -1,0 +1,4 @@
+from models.CHARTEX import CHARTEX
+ch = CHARTEX()
+
+ch.get_categories_chart()
