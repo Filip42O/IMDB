@@ -15,17 +15,17 @@ import streamlit as st
 path_prefix = "/mount/src/imdb/IMDB"
 #path_prefix = "."
 
-path_to_review_file = f"{path_prefix}/reviews_saved"
+path_to_review_file = f"{path_prefix}/data/reviews_saved"
 
-path_to_movies_file = f"{path_prefix}/movies_saved"
+path_to_movies_file = f"{path_prefix}/data/movies_saved"
 
-path_to_users_file = f"{path_prefix}/users_saved"
+path_to_users_file = f"{path_prefix}/data/users_saved"
 
-path_to_avatar = f"{path_prefix}/default_avatar.png"
+path_to_avatar = f"{path_prefix}/avatary/default_avatar.png"
 
-path_to_video = f"{path_prefix}/Video-17.mp4"
+path_to_video = f"{path_prefix}/data/Video-17.mp4"
 
-path_to_nerd = f"{path_prefix}/nerd.png"
+path_to_nerd = f"{path_prefix}/avatary/nerd.png"
 
 
 st.set_page_config(
@@ -65,7 +65,7 @@ def save_users_if_needed():
     global users
     if "users_need_save" in st.session_state and st.session_state.users_need_save:
         try:
-            File_Handler.saveuserstofile("./users_saved", users)
+            File_Handler.saveuserstofile(path_to_users_file, users)
             print("Zapisano dane użytkowników")
             st.session_state.users_need_save = False
         except Exception as e:
@@ -90,7 +90,7 @@ def handle_username_submit():
         users.append(new_user)
 
         st.session_state.user = new_user
-        File_Handler.saveuserstofile("./users_saved", users)
+        File_Handler.saveuserstofile(path_to_users_file, users)
         
         User.clear_data()
         users = loadusers() #reload users
@@ -117,7 +117,7 @@ def handle_password_submit():
         st.session_state.users_need_save = True
 
         try:
-            File_Handler.saveuserstofile("./users_saved", users)
+            File_Handler.saveuserstofile(path_to_users_file, users)
             print(f"Zapisano hasło dla użytkownika {st.session_state.user.username}")
             st.session_state.users_need_save = False
         except Exception as e:
@@ -292,7 +292,7 @@ else:
                         user.watched_list.remove(mov)
                         users.append(user)
                         
-                        File_Handler.saveuserstofile("./users_saved", users)#insta save do pliku
+                        File_Handler.saveuserstofile(path_to_users_file, users)#insta save do pliku
                         st.rerun()
                 with col3:
                     if st.button(f"Recenzuj", type="secondary", key=f"recenzja {mov.id}"):
