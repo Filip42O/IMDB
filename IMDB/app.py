@@ -10,8 +10,6 @@ import streamlit as st
 
 #/mount/src/imdb/IMDB
 
-st.text(os.getcwd())
-
 #jakas patologia z tym streamlitem i sciezkami robilmy na stale nara essa
 
 path_prefix = f"{os.getcwd()}/IMDB"
