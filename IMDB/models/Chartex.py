@@ -15,7 +15,7 @@ class CHARTEX:
     '#f46800', '#f24b00', '#ec2b00', '#e60b00', '#ff0000',
     '#ff2211', '#ff4724', '#ff6835']
             
-    def get_categories_chart(movies_list : list[Movie]):
+    def get_categories_chart(movies_list : list[Movie]) -> plt:
         movies_cats = dict()
         for movie in movies_list:
             for category in movie.Categories:
@@ -32,7 +32,7 @@ class CHARTEX:
         # plt.show()
         return plt
 
-    def get_reviews_chart(reviews_list : list[Review], users_list : list[User]):
+    def get_reviews_chart(reviews_list : list[Review], users_list : list[User]) -> plt:
         usrID_revCNT = dict[str,int]()
         
         #init mapki
@@ -62,7 +62,7 @@ class CHARTEX:
         self.movies = File_Handler.movie_list
     
     
-    def get_length_chart(self):
+    def get_length_chart(self) -> None:
         lengths = [int(movie.Length) for movie in self.movies]
         min_len = min(lengths)
         max_len = max(lengths)
