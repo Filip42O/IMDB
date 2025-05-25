@@ -21,7 +21,7 @@ path_to_movies_file = f"{path_prefix}/movies_saved"
 
 path_to_users_file = f"{path_prefix}/users_saved"
 
-path_to_avatar = f"{path_prefix}/avatar.png"
+path_to_avatar = f"{path_prefix}/default_avatar.png"
 
 path_to_video = f"{path_prefix}/Video-17.mp4"
 
@@ -55,6 +55,11 @@ def loadreviews():
     #File_Handler.loadreviewfromfile("/mount/src/imdb/IMDB/reviews_saved")
     #print("Loaded reviews!")
     return File_Handler.review_list
+
+def loadavatar(user_id : int) -> str:
+    if not os.path.exists(f"{path_prefix}/avatary/avatar_{user_id}.png"):
+        return path_to_avatar
+    return f"{path_prefix}/avatary/avatar_{user_id}.png"
 
 def save_users_if_needed():
     global users
@@ -210,8 +215,12 @@ if not st.session_state.logged:
 else:
     
     #interfejs po logowaniu
-    st.title(f"Witaj, :blue[{st.session_state.user.username}]!")
-
+    titl , avat = st.columns([1,6])
+    with titl:
+        st.image(loadavatar(st.session_state.user.id), width=75)
+    with avat:
+        st.title(f"Witaj, :blue[{st.session_state.user.username}]!")
+        
     #init tabelek
     tabs = st.tabs(["Profil", "Filmy", "Recenzje","Statystyki"])
 
@@ -221,7 +230,17 @@ else:
         st.write(f"Nazwa użytkownika: {st.session_state.user.username}")
         st.write(f"Ilość obejrzanych filmów: {len(st.session_state.user.watched_list)}")
         st.write(f"Ilość dodanych recenzji: {len(st.session_state.user.review_list)}")
-        st.image(path_to_avatar,caption="Sigma sigma boi")
+        uploaded_file = st.file_uploader("Zmień avatar",type="png")
+        #zapisywanie avatara
+        if uploaded_file is not None:
+            avatar_path = f"{path_prefix}/avatary/avatar_{st.session_state.user.id}.png"
+            
+            with open(avatar_path, "wb") as file:
+                file.write(uploaded_file.getbuffer())
+                st.success("Pomyślnie zmieniono avatara!")
+            uploaded_file.close()
+            st.rerun()
+        #st.image(path_to_avatar,caption="Sigma sigma boi")
 
     with tabs[1]:
         st.header("Zarządzanie filmami")
