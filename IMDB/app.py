@@ -14,8 +14,8 @@ import streamlit as st
 # print(f"{os.getcwd()} path is")
 # exit
 
-path_prefix = f"{os.getcwd()}/IMDB"
-#path_prefix = "."
+#path_prefix = f"{os.getcwd()}/IMDB"
+path_prefix = "."
 
 path_to_review_file = f"{path_prefix}/data/reviews_saved"
 
@@ -25,7 +25,7 @@ path_to_users_file = f"{path_prefix}/data/users_saved"
 
 path_to_avatar = f"{path_prefix}/avatary/default_avatar.png"
 
-path_to_video = f"{path_prefix}/data/Video-17.mp4"
+path_to_video = f"{path_prefix}/data/big_boss_of_hell_himself.mp4"
 
 path_to_nerd = f"{path_prefix}/avatary/nerd.png"
 
@@ -347,14 +347,16 @@ else:
             st.header("Statystyki")
         with col2:
             st.image(path_to_nerd, caption="Well actually...",width=100)
-        
+
+        time.sleep(1)
         backed_reviews = reviews.copy()
         backed_users = users.copy()
-        
-        st.pyplot(CHARTEX.get_reviews_chart(backed_reviews, backed_users),clear_figure=True)
-        
-        st.pyplot(CHARTEX.get_categories_chart(movies),clear_figure=True)
 
+        time.sleep(0.2)
+        st.pyplot(CHARTEX.get_reviews_chart(backed_reviews, backed_users),clear_figure=True)
+        time.sleep(0.2)
+        st.pyplot(CHARTEX.get_categories_chart(movies),clear_figure=True)
+        time.sleep(0.2)
         st.pyplot(CHARTEX.get_length_chart(movies),clear_figure=True)
     #logout button
     if st.button("Wyloguj się", on_click=logout):
