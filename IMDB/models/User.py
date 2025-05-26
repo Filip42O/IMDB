@@ -119,5 +119,5 @@ class User:
         return Review(input_film, rating, description)
 
     #DRUKOWANIE USERA
-    def __str__(self) -> str:
+    def __str__(self):
         return f"[{self.id}]: {self.username}"

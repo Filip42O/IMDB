@@ -65,5 +65,5 @@ class Movie:
     def niceformat(self) -> str:
         return f"{self.Title} - {self.Year} - {self.Director} - {self.getCategories()}"
 
-    def __str__(self) -> str:
+    def __str__(self):
         return f"[{self.id}:{self.Title} from {self.Year} [Length:{self.Length}] by {self.Director} Categories: {self.showCategories()}]"

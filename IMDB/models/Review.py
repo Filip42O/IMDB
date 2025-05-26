@@ -53,6 +53,6 @@ class Review:
                 return True
         return False
     
-    def __str__(self) -> str:
+    def __str__(self):
         return f"Review:[{self.id}] by {self.user_id} for {self.movie}: {self.rating}/10 -> {self.description}"
 
