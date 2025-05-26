@@ -55,27 +55,23 @@ class CHARTEX:
         #plt.show()
         plt.gca().yaxis.set_major_locator(plt.MaxNLocator(integer=True))  # Ensure y-axis has integer ticks
         return plt
-        
-    
-    def __init__(self):
-        File_Handler.loadmoviesfromfile("../movies_saved")
-        self.movies = File_Handler.movie_list
-    
-    
-    def get_length_chart(self) -> None:
-        lengths = [int(movie.Length) for movie in self.movies]
-        min_len = min(lengths)
-        max_len = max(lengths)
-        movies_lens = dict()
-        for i in range(min_len,max_len+1):
-            movies_lens[i] = movies_lens.get(i, 0)
-        for movie in self.movies:
-            movies_lens[movie.Length] = movies_lens.get(movie.Length, 0)+1
-        print(movies_lens)
+
+    def get_length_chart(movies_list: list[Movie]) -> plt:
+        lengths = [int(m.Length) for m in movies_list]
+        min_len = (min(lengths) // 10) * 10
+        max_len = (max(lengths) // 10) * 10
+        movies_lens = {i: 0 for i in range(min_len, max_len + 10, 10)}
+        for m in movies_list:
+            length = int(m.Length)
+            bin_key = (length // 10) * 10
+            movies_lens[bin_key] += 1
+        x = sorted(movies_lens.keys())
+        y = [movies_lens[k] for k in x]
         plt.figure()
-        plt.bar(movies_lens.keys(), movies_lens.values())
+        plt.bar(x, y, width=8, color=CHARTEX.colors)
         plt.xlabel('Length')
-        plt.ylabel('Number')
-        plt.title('Movie Length')
+        plt.ylabel('Number of movies')
+        plt.title('Movie Lengths')
         plt.tight_layout()
-        plt.show()
+        #plt.show()
+        return plt

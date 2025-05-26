@@ -5,12 +5,14 @@ from models.Movie import Movie
 from models.Review import Review
 from models.Chartex import CHARTEX
 from storage.File_Handler import File_Handler
-
+import matplotlib.pyplot as plt
 import streamlit as st
 
 #/mount/src/imdb/IMDB
 
 #jakas patologia z tym streamlitem i sciezkami robilmy na stale nara essa
+# print(f"{os.getcwd()} path is")
+# exit
 
 path_prefix = f"{os.getcwd()}/IMDB"
 #path_prefix = "."
@@ -352,6 +354,8 @@ else:
         st.pyplot(CHARTEX.get_reviews_chart(backed_reviews, backed_users),clear_figure=True)
         
         st.pyplot(CHARTEX.get_categories_chart(movies),clear_figure=True)
+
+        st.pyplot(CHARTEX.get_length_chart(movies),clear_figure=True)
     #logout button
     if st.button("Wyloguj się", on_click=logout):
         save_users_if_needed()
