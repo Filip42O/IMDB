@@ -1,4 +1,5 @@
 from models.Movie import Movie
+from models.Exceptions import *
 
 
 class Review:
@@ -31,7 +32,7 @@ class Review:
 
         #sprawdzamy czy id jest zajete
         if new_id in Movie.taken_id:
-            raise Exception(f"Id filmu: {new_id} jest juz zajete!")
+            raise MovieIdTaken(new_id)
         else:
             self.id = new_id
             Movie.taken_id.add(self.id)

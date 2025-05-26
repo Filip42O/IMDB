@@ -1,5 +1,5 @@
 from models.Category import Category
-
+from models.Exceptions import *
 
 class Movie:
     __global_id = 401
@@ -50,7 +50,7 @@ class Movie:
 
         #sprawdzamy czy id jest zajete
         if new_id in Movie.taken_id:
-            raise Exception(f"Id filmu: {new_id} jest juz zajete!")
+            raise MovieIdTaken(new_id)
         else:
             self.id = new_id
             Movie.taken_id.add(self.id)

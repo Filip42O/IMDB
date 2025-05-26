@@ -5,6 +5,7 @@ from models.Movie import Movie
 from models.Review import Review
 from models.Chartex import CHARTEX
 from storage.File_Handler import File_Handler
+from models.Exceptions import *
 import matplotlib.pyplot as plt
 import streamlit as st
 
@@ -289,7 +290,7 @@ else:
                         if User.remove_by_id_from_list(users, user.id):
                             print(f"Przeładowano użytkownika {user.username} na liście użytkowników")
                         else:
-                            raise Exception(f"Nie można usunąć {user.username} w usuwaniu filmu! ")
+                            raise CannotDeleteUserFromMovie(user.username)
                         
                         user.watched_list.remove(mov)
                         users.append(user)
@@ -338,7 +339,7 @@ else:
                     if Review.remove_by_id_from_list(reviews, review.id):
                         print(f"Usunięto recenzję {review.id} z listy recenzji")
                     else:
-                        raise Exception(f"Nie można usunąć recenzji {review.id} w usuwaniu recenzji!")
+                        raise CannotDeleteReview(review.id)
                     File_Handler.savereviewstofile(path_to_review_file, reviews)
                     st.rerun()
     with tabs[3]:

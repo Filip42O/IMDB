@@ -1,6 +1,7 @@
 from models.Movie import Movie
 from models.Review import Review
 import bcrypt
+from models.Exceptions import *
 
 class User:
     __global_id = 101
@@ -48,7 +49,7 @@ class User:
 
         #sprawdzamy czy id jest zajete
         if new_id in User.taken_id:
-            raise Exception(f"Id {new_id} jest juz zajete!")
+            raise UserIdTaken(new_id)
         else:
             self.id = new_id
             User.taken_id.add(self.id)
@@ -100,7 +101,7 @@ class User:
             if review.movie == input_movie:
                 self.review_list.remove(review)
             else:
-                raise Exception("Review for that movie doesnt exist!")
+                raise ReviewNotFound()
 
     def print_reviews(self) -> None:
         for review in self.review_list:
