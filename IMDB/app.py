@@ -225,7 +225,7 @@ else:
         st.title(f"Witaj, :blue[{st.session_state.user.username}]!")
         
     #init tabelek
-    tabs = st.tabs(["Profil", "Filmy", "Recenzje","Statystyki"])
+    tabs = st.tabs(["Profil", "Filmy", "Recenzje", "Statystyki"])
 
     with tabs[0]:
         st.header("Twój profil")
@@ -349,15 +349,15 @@ else:
         with col2:
             st.image(path_to_nerd, caption="Well actually...",width=100)
 
-        time.sleep(1)
+        time.sleep(0.1)
         backed_reviews = reviews.copy()
         backed_users = users.copy()
 
-        time.sleep(0.2)
+        time.sleep(0.1)
         st.pyplot(CHARTEX.get_reviews_chart(backed_reviews, backed_users),clear_figure=True)
-        time.sleep(0.2)
+        time.sleep(0.1)
         st.pyplot(CHARTEX.get_categories_chart(movies),clear_figure=True)
-        time.sleep(0.2)
+        time.sleep(0.1)
         st.pyplot(CHARTEX.get_length_chart(movies),clear_figure=True)
     #logout button
     if st.button("Wyloguj się", on_click=logout):
