@@ -15,8 +15,8 @@ import streamlit as st
 # print(f"{os.getcwd()} path is")
 # exit
 
-#path_prefix = f"{os.getcwd()}/IMDB"
-path_prefix = "."
+path_prefix = f"{os.getcwd()}/IMDB"
+#path_prefix = "."
 
 path_to_review_file = f"{path_prefix}/data/reviews_saved"
 
