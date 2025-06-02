@@ -12,11 +12,11 @@ import streamlit as st
 #/mount/src/imdb/IMDB
 
 #jakas patologia z tym streamlitem i sciezkami robilmy na stale nara essa
-raise Exception(f"{os.getcwd()} path is")
+# print(f"{os.getcwd()} path is")
 # exit
 
-#path_prefix = f"{os.getcwd()}/IMDB"
-path_prefix = "."
+path_prefix = f"{os.getcwd()}/IMDB"
+#path_prefix = "."
 
 path_to_review_file = f"{path_prefix}/data/reviews_saved"
 
